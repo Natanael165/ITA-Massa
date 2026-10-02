@@ -1,0 +1,2557 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ITA 1000 Questões de Matemática - Professor Palito</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Verdana', 'Segoe UI', Tahoma, sans-serif;
+    background: linear-gradient(135deg, #1a2a6c 0%, #2c5364 40%, #0f2027 100%);
+    min-height: 100vh;
+    padding: 15px;
+    color: #e8f0ff;
+    line-height: 1.7;
+    font-size: 17px;
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 25px;
+    padding: 25px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), inset 0 0 0 2px rgba(255, 200, 80, 0.3);
+    border: 2px solid #ffd93d;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 3px dashed #ffd93d55;
+  }
+
+  h1 {
+    font-size: 2em;
+    color: #ffd93d;
+    text-shadow: 3px 3px 0 #b8450e, 6px 6px 15px rgba(0,0,0,0.5);
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+  }
+
+  .subtitle { color: #a8d8ff; font-size: 1em; font-weight: 600; letter-spacing: 1px; }
+
+  .badge-ita {
+    display: inline-block;
+    background: linear-gradient(135deg, #ffd93d, #ff9a56);
+    color: #1a2a6c;
+    padding: 6px 20px;
+    border-radius: 30px;
+    font-weight: bold;
+    margin-top: 10px;
+    font-size: 0.85em;
+    box-shadow: 0 4px 0 #b8450e;
+  }
+
+  /* ===================== BARRA LOCALIZAR PÁGINA ===================== */
+  .localizar-area {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.12), rgba(255, 154, 86, 0.12));
+    border: 2px solid #ffd93d;
+    border-radius: 18px;
+    padding: 18px 20px;
+    margin-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 8px 25px rgba(255, 217, 61, 0.15);
+  }
+
+  .localizar-area label {
+    color: #ffd93d;
+    font-weight: bold;
+    font-size: 1em;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .localizar-area input[type="number"] {
+    flex: 1;
+    min-width: 140px;
+    padding: 12px 15px;
+    border-radius: 12px;
+    border: 2px solid #ffd93d55;
+    background: rgba(0, 0, 0, 0.35);
+    color: #fff;
+    font-family: inherit;
+    font-size: 1.05em;
+    font-weight: bold;
+    outline: none;
+    transition: all 0.2s;
+    text-align: center;
+  }
+
+  .localizar-area input[type="number"]:focus {
+    border-color: #ffd93d;
+    background: rgba(255, 217, 61, 0.12);
+    box-shadow: 0 0 0 4px rgba(255, 217, 61, 0.2);
+  }
+
+  .localizar-area input[type="number"]::-webkit-outer-spin-button,
+  .localizar-area input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  .localizar-area input[type="number"] {
+    -moz-appearance: textfield;
+  }
+
+  .btn-localizar {
+    background: linear-gradient(135deg, #ffd93d, #ff9a56);
+    color: #1a2a6c;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1em;
+    font-family: inherit;
+    box-shadow: 0 4px 0 #b8450e;
+    transition: all 0.2s;
+    letter-spacing: 0.5px;
+  }
+
+  .btn-localizar:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 #b8450e;
+  }
+
+  .btn-localizar:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 #b8450e;
+  }
+
+  .localizar-info {
+    width: 100%;
+    font-size: 0.85em;
+    color: #ffb347;
+    font-style: italic;
+    margin-top: -4px;
+  }
+
+  .localizar-msg {
+    width: 100%;
+    padding: 10px 15px;
+    border-radius: 10px;
+    font-size: 0.95em;
+    font-weight: 600;
+    display: none;
+  }
+
+  .localizar-msg.show { display: block; }
+  .localizar-msg.ok {
+    background: rgba(107, 207, 127, 0.2);
+    color: #6bcf7f;
+    border: 1px solid #6bcf7f;
+  }
+  .localizar-msg.err {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+    border: 1px solid #ff6b6b;
+  }
+
+  .professor-area {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: rgba(255, 217, 61, 0.1);
+    padding: 20px;
+    border-radius: 20px;
+    border: 2px solid #ffd93d55;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+  }
+
+  .professor-boneco {
+    font-size: 4em;
+    animation: flutuar 3s ease-in-out infinite;
+    filter: drop-shadow(4px 6px 8px rgba(0,0,0,0.4));
+  }
+
+  @keyframes flutuar {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-10px) rotate(3deg); }
+  }
+
+  .fala-professor {
+    flex: 1;
+    min-width: 250px;
+    background: linear-gradient(135deg, #ffd93d, #ffb347);
+    color: #1a2a6c;
+    padding: 18px 22px;
+    border-radius: 20px 20px 20px 5px;
+    font-weight: 600;
+    font-size: 1em;
+    line-height: 1.6;
+    box-shadow: 5px 5px 0 #b8450e;
+    position: relative;
+  }
+
+  .fala-professor::before {
+    content: "💬";
+    position: absolute;
+    left: -15px;
+    top: -15px;
+    font-size: 1.8em;
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+  }
+
+  .stat-card {
+    background: rgba(255, 255, 255, 0.08);
+    padding: 15px;
+    border-radius: 15px;
+    text-align: center;
+    border: 2px solid #ffd93d33;
+  }
+
+  .stat-numero { font-size: 1.7em; font-weight: bold; color: #ffd93d; display: block; }
+  .stat-label { font-size: 0.8em; color: #a8d8ff; text-transform: uppercase; letter-spacing: 1px; }
+
+  .filtros {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 25px;
+    justify-content: center;
+  }
+
+  .filtro-btn {
+    background: rgba(255, 255, 255, 0.08);
+    color: #e8f0ff;
+    border: 2px solid #ffd93d55;
+    padding: 10px 18px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9em;
+    font-family: inherit;
+    transition: all 0.2s;
+  }
+
+  .filtro-btn:hover { background: rgba(255, 217, 61, 0.2); border-color: #ffd93d; }
+  .filtro-btn.ativo {
+    background: linear-gradient(135deg, #ffd93d, #ff9a56);
+    color: #1a2a6c;
+    border-color: #ffd93d;
+    box-shadow: 0 4px 0 #b8450e;
+  }
+
+  .questao-card {
+    background: rgba(255, 255, 255, 0.06);
+    border-radius: 20px;
+    padding: 25px;
+    border: 2px solid #ffd93d44;
+    margin-bottom: 20px;
+    transition: box-shadow 0.3s;
+    position: relative;
+  }
+
+  .questao-card.highlight {
+    animation: pulseLocalizar 1.5s ease;
+  }
+
+  @keyframes pulseLocalizar {
+    0%, 100% { box-shadow: 0 0 0 0 rgba(255, 217, 61, 0); }
+    50% { box-shadow: 0 0 0 12px rgba(255, 217, 61, 0.4); }
+  }
+
+  .questao-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 18px;
+    padding-bottom: 15px;
+    border-bottom: 2px dashed #ffd93d33;
+  }
+
+  .questao-numero {
+    background: linear-gradient(135deg, #ffd93d, #ff9a56);
+    color: #1a2a6c;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-weight: bold;
+    font-size: 0.95em;
+  }
+
+  .questao-tema {
+    background: rgba(107, 207, 127, 0.2);
+    color: #6bcf7f;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.85em;
+    border: 1px solid #6bcf7f55;
+  }
+
+  .questao-dificuldade {
+    padding: 4px 12px;
+    border-radius: 15px;
+    font-size: 0.8em;
+    font-weight: bold;
+  }
+
+  .dif-facil { background: #6bcf7f33; color: #6bcf7f; }
+  .dif-media { background: #ffd93d33; color: #ffd93d; }
+  .dif-dificil { background: #ff6b6b33; color: #ff6b6b; }
+
+  .questao-enunciado {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-radius: 12px;
+    border-left: 5px solid #ffd93d;
+    font-size: 1.05em;
+    line-height: 1.9;
+    color: #e8f0ff;
+    margin-bottom: 20px;
+  }
+
+  .questao-enunciado strong { color: #ffd93d; }
+
+  .alternativas { display: grid; gap: 10px; margin-bottom: 20px; }
+
+  .alternativa {
+    background: rgba(255, 255, 255, 0.05);
+    padding: 15px 20px;
+    border-radius: 12px;
+    border: 2px solid #ffffff15;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1em;
+    color: #e8f0ff;
+    font-family: inherit;
+    text-align: left;
+    width: 100%;
+    line-height: 1.5;
+  }
+
+  .alternativa:hover:not(.desabilitada) {
+    background: rgba(255, 217, 61, 0.15);
+    border-color: #ffd93d;
+    transform: translateX(5px);
+  }
+
+  .alternativa .letra {
+    background: #ffd93d;
+    color: #1a2a6c;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    flex-shrink: 0;
+  }
+
+  .alternativa.correta { background: rgba(107, 207, 127, 0.25); border-color: #6bcf7f; }
+  .alternativa.correta .letra { background: #6bcf7f; color: white; }
+  .alternativa.errada { background: rgba(255, 107, 107, 0.25); border-color: #ff6b6b; }
+  .alternativa.errada .letra { background: #ff6b6b; color: white; }
+  .alternativa.desabilitada { cursor: not-allowed; opacity: 0.85; }
+
+  .resolucao {
+    background: linear-gradient(135deg, rgba(26, 42, 108, 0.95), rgba(44, 83, 100, 0.95));
+    border: 3px solid #6bcf7f;
+    border-radius: 15px;
+    padding: 25px;
+    margin-top: 25px;
+    display: none;
+  }
+
+  .resolucao.visivel { display: block; }
+
+  .resolucao-titulo {
+    color: #6bcf7f;
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-bottom: 3px solid #6bcf7f55;
+    padding-bottom: 12px;
+  }
+
+  .passo {
+    background: rgba(255, 255, 255, 0.07);
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 18px;
+    border-left: 6px solid #ffd93d;
+  }
+
+  .passo-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+
+  .passo-numero {
+    background: #ffd93d;
+    color: #1a2a6c;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 38px;
+    font-weight: bold;
+    font-size: 1.1em;
+    flex-shrink: 0;
+  }
+
+  .passo-titulo { color: #ffd93d; font-weight: bold; font-size: 1.1em; line-height: 1.4; }
+
+  .passo-explicacao {
+    color: #e8f0ff;
+    font-size: 1em;
+    line-height: 1.85;
+    margin-bottom: 12px;
+    padding-left: 50px;
+  }
+
+  .passo-explicacao p { margin-bottom: 10px; }
+
+  .exemplo-cotidiano {
+    background: linear-gradient(135deg, rgba(107, 207, 127, 0.15), rgba(61, 139, 75, 0.15));
+    border-left: 5px solid #6bcf7f;
+    padding: 15px 20px;
+    border-radius: 10px;
+    margin: 12px 0 12px 50px;
+    color: #d4ffd4;
+    font-size: 0.98em;
+    line-height: 1.75;
+  }
+
+  .exemplo-cotidiano::before {
+    content: "🌍 EXEMPLO DO COTIDIANO";
+    display: block;
+    color: #6bcf7f;
+    font-weight: bold;
+    font-size: 0.85em;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .visual-matematico {
+    background: #0d1b2a;
+    padding: 18px 20px;
+    border-radius: 10px;
+    font-family: 'Courier New', monospace;
+    color: #6bcf7f;
+    margin: 12px 0 12px 50px;
+    overflow-x: auto;
+    font-size: 1.05em;
+    line-height: 1.9;
+    border: 2px solid #6bcf7f55;
+    letter-spacing: 1px;
+  }
+
+  .visual-matematico .linha { display: block; margin-bottom: 6px; }
+  .visual-matematico .destaque { color: #ffd93d; font-weight: bold; }
+  .visual-matematico .resultado { color: #ff9a56; font-weight: bold; font-size: 1.1em; }
+
+  .check-entendimento {
+    background: rgba(255, 217, 61, 0.12);
+    border: 2px dashed #ffd93d;
+    border-radius: 10px;
+    padding: 15px 20px;
+    margin: 15px 0 15px 50px;
+    color: #ffe9a8;
+    font-size: 0.98em;
+    line-height: 1.75;
+  }
+
+  .check-entendimento::before {
+    content: "✅ VAMOS CONFERIR SE ENTENDI:";
+    display: block;
+    color: #ffd93d;
+    font-weight: bold;
+    font-size: 0.85em;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .dica-professor {
+    background: linear-gradient(135deg, #ffd93d, #ffb347);
+    color: #1a2a6c;
+    padding: 18px 22px;
+    border-radius: 12px;
+    margin-top: 20px;
+    font-weight: 600;
+    display: flex;
+    gap: 15px;
+    align-items: flex-start;
+    box-shadow: 5px 5px 0 #b8450e;
+    line-height: 1.7;
+  }
+
+  .dica-professor .emoji { font-size: 1.8em; flex-shrink: 0; }
+
+  .resumo-final {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.15), rgba(255, 154, 86, 0.15));
+    border: 3px solid #ffd93d;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 20px;
+    color: #ffe9a8;
+    line-height: 1.85;
+  }
+
+  .resumo-final::before {
+    content: "📌 RESUMO DA RESOLUÇÃO";
+    display: block;
+    color: #ffd93d;
+    font-weight: bold;
+    font-size: 1em;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+  }
+
+  .navegacao {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px dashed #ffd93d33;
+    gap: 15px;
+    flex-wrap: wrap;
+  }
+
+  .btn-nav {
+    background: linear-gradient(135deg, #ffd93d, #ff9a56);
+    color: #1a2a6c;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.95em;
+    font-family: inherit;
+    box-shadow: 0 4px 0 #b8450e;
+    transition: all 0.2s;
+  }
+
+  .btn-nav:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 6px 0 #b8450e; }
+  .btn-nav:disabled { opacity: 0.4; cursor: not-allowed; }
+
+  .contador-questao { color: #a8d8ff; font-weight: bold; font-size: 1em; }
+
+  .btn-revelar {
+    background: linear-gradient(135deg, #6bcf7f, #3d8b4b);
+    color: white;
+    border: none;
+    padding: 15px 25px;
+    border-radius: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 1.05em;
+    font-family: inherit;
+    box-shadow: 0 4px 0 #1e4a28;
+    transition: all 0.2s;
+    margin-top: 15px;
+    width: 100%;
+  }
+
+  .btn-revelar:hover { transform: translateY(-2px); box-shadow: 0 6px 0 #1e4a28; }
+
+  .barra-progresso {
+    height: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 15px 0;
+  }
+
+  .barra-progresso-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #6bcf7f, #ffd93d);
+    transition: width 0.5s ease;
+    border-radius: 10px;
+  }
+
+  .feedback {
+    text-align: center;
+    padding: 18px;
+    border-radius: 12px;
+    font-weight: bold;
+    font-size: 1.1em;
+    margin-top: 15px;
+    display: none;
+    line-height: 1.6;
+  }
+
+  .feedback.visivel { display: block; }
+  .feedback.acerto { background: rgba(107, 207, 127, 0.2); color: #6bcf7f; border: 2px solid #6bcf7f; }
+  .feedback.erro { background: rgba(255, 107, 107, 0.2); color: #ff6b6b; border: 2px solid #ff6b6b; }
+
+  /* ===================== BARRA DE RABISCO ===================== */
+  .rabisco-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 2px solid #ffd93d55;
+    border-radius: 16px;
+    padding: 12px 16px;
+    margin-bottom: 15px;
+  }
+
+  .rabisco-toolbar.sticky-tools {
+    position: sticky;
+    top: 10px;
+    z-index: 50;
+    background: linear-gradient(135deg, rgba(26, 42, 108, 0.98), rgba(44, 83, 100, 0.98));
+    border: 2px solid #ffd93d;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.6);
+    margin-bottom: 20px;
+  }
+
+  .rabisco-toolbar .rotulo {
+    color: #ffd93d;
+    font-weight: bold;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+  }
+
+  .cor-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 3px solid #ffffff33;
+    cursor: pointer;
+    transition: transform 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .cor-btn:hover { transform: scale(1.1); }
+
+  .cor-btn.ativa {
+    border-color: #ffd93d;
+    box-shadow: 0 0 0 3px rgba(255, 217, 61, 0.4);
+    transform: scale(1.12);
+  }
+
+  .cor-azul   { background: #1e6bff; }
+  .cor-vermelha { background: #ff2b2b; }
+  .cor-preta  { background: #111111; }
+  .cor-verde  { background: #22c55e; }
+
+  .borracha-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 10px;
+    border: 3px solid #ffffff33;
+    cursor: pointer;
+    background: #f0f0f0;
+    color: #1a2a6c;
+    font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s, border-color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .borracha-btn:hover { transform: scale(1.1); }
+
+  .borracha-btn.ativa {
+    border-color: #ffd93d;
+    box-shadow: 0 0 0 3px rgba(255, 217, 61, 0.4);
+    transform: scale(1.12);
+  }
+
+  .espessura-btn {
+    width: 38px;
+    height: 34px;
+    border-radius: 10px;
+    border: 2px solid #ffffff33;
+    cursor: pointer;
+    background: rgba(255,255,255,0.08);
+    color: #e8f0ff;
+    font-weight: bold;
+    font-size: 0.85em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.15s;
+    flex-shrink: 0;
+  }
+
+  .espessura-btn:hover { background: rgba(255,217,61,0.2); border-color: #ffd93d; }
+
+  .espessura-btn.ativa {
+    background: linear-gradient(135deg, #ffd93d, #ff9a56);
+    color: #1a2a6c;
+    border-color: #ffd93d;
+    box-shadow: 0 3px 0 #b8450e;
+  }
+
+  .rabisco-btn-limpar {
+    background: rgba(255, 107, 107, 0.2);
+    color: #ff6b6b;
+    border: 2px solid #ff6b6b88;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-family: inherit;
+    transition: all 0.15s;
+    margin-left: auto;
+  }
+
+  .rabisco-btn-limpar:hover {
+    background: rgba(255, 107, 107, 0.35);
+    border-color: #ff6b6b;
+  }
+
+  /* ===================== ÁREA DE RABISCO ===================== */
+  .rabisco-wrapper {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 14px;
+    overflow: hidden;
+    border: 2px dashed #ffd93d88;
+    background: rgba(0, 0, 0, 0.18);
+    touch-action: none;
+  }
+
+  .rabisco-wrapper canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    cursor: crosshair;
+    touch-action: none;
+  }
+
+  .rabisco-placeholder {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffd93d88;
+    font-size: 0.95em;
+    font-weight: 600;
+    pointer-events: none;
+    text-align: center;
+    padding: 10px;
+    letter-spacing: 0.5px;
+  }
+
+  /* ===================== RABISCO SOBRE A RESOLUÇÃO ===================== */
+  .resolucao-rabisco-container {
+    position: relative;
+    margin-top: 20px;
+  }
+
+  .resolucao-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    cursor: crosshair;
+    touch-action: none;
+    pointer-events: auto;
+    border-radius: 15px;
+  }
+
+  .resolucao-conteudo {
+    position: relative;
+    z-index: 5;
+  }
+
+  .resolucao.rabisco-ativo .resolucao-canvas {
+    border: 3px dashed #ffd93d;
+    box-shadow: inset 0 0 30px rgba(255, 217, 61, 0.15);
+  }
+
+  .aviso-rabisco-resolucao {
+    background: linear-gradient(135deg, rgba(255, 217, 61, 0.2), rgba(255, 154, 86, 0.2));
+    border: 2px dashed #ffd93d;
+    border-radius: 12px;
+    padding: 12px 18px;
+    color: #ffe9a8;
+    font-size: 0.9em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .aviso-rabisco-resolucao .icone { font-size: 1.4em; flex-shrink: 0; }
+
+  @media (max-width: 600px) {
+    body { font-size: 15px; }
+    h1 { font-size: 1.5em; }
+    .professor-boneco { font-size: 3em; }
+    .container { padding: 15px; }
+    .passo-explicacao, .exemplo-cotidiano, .visual-matematico, .check-entendimento {
+      padding-left: 15px; margin-left: 0;
+    }
+    .localizar-area { flex-direction: column; align-items: stretch; }
+    .localizar-area input[type="number"] { width: 100%; }
+    .rabisco-toolbar { padding: 10px; gap: 8px; }
+    .rabisco-btn-limpar { margin-left: 0; }
+    .rabisco-toolbar.sticky-tools { top: 5px; }
+  }
+
+  ::-webkit-scrollbar { width: 10px; }
+  ::-webkit-scrollbar-track { background: #0f2027; }
+  ::-webkit-scrollbar-thumb { background: linear-gradient(#ffd93d, #ff9a56); border-radius: 10px; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>🎓 ITA 1000 Questões de Matemática 🎓</h1>
+    <div class="subtitle">Cada questão ÚNICA, com resolução passo a passo detalhada</div>
+    <div class="badge-ita">⚔️ 1000 questões diferentes, uma por uma! ⚔️</div>
+  </header>
+
+  <!-- ===================== LOCALIZAR PÁGINA ===================== -->
+  <div class="localizar-area">
+    <label for="inputLocalizar">🔍 Localizar página:</label>
+    <input
+      type="number"
+      id="inputLocalizar"
+      min="1"
+      max="1000"
+      placeholder="Digite o nº (1 a 1000)"
+    >
+    <button class="btn-localizar" id="btnLocalizar">Ir para página ➡</button>
+    <div class="localizar-info">💡 Digite um número entre 1 e 1000 e pressione Enter ou clique em "Ir para página".</div>
+    <div class="localizar-msg" id="localizarMsg"></div>
+  </div>
+
+  <div class="professor-area">
+    <div class="professor-boneco">🥢👨‍🏫</div>
+    <div class="fala-professor" id="falaProfessor">
+      “Olá! Aqui você tem 1000 questões de matemática, TODAS diferentes. Cada uma explicada passo a passo, com calma e clareza!”
+    </div>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><span class="stat-numero" id="statAcertos">0</span><span class="stat-label">Acertos</span></div>
+    <div class="stat-card"><span class="stat-numero" id="statErros">0</span><span class="stat-label">Erros</span></div>
+    <div class="stat-card"><span class="stat-numero" id="statTotal">0</span><span class="stat-label">Respondidas</span></div>
+    <div class="stat-card"><span class="stat-numero" id="statAproveitamento">0%</span><span class="stat-label">Aproveitamento</span></div>
+  </div>
+
+  <div class="barra-progresso">
+    <div class="barra-progresso-fill" id="progressoFill" style="width: 0%"></div>
+  </div>
+
+  <div class="filtros" id="filtros">
+    <button class="filtro-btn ativo" data-tema="todas">🎯 Todas</button>
+    <button class="filtro-btn" data-tema="aritmetica">🔢 Aritmética</button>
+    <button class="filtro-btn" data-tema="algebra">📐 Álgebra</button>
+    <button class="filtro-btn" data-tema="geometria">📏 Geometria</button>
+    <button class="filtro-btn" data-tema="funcoes">📈 Funções</button>
+    <button class="filtro-btn" data-tema="trigonometria">📐 Trigonometria</button>
+    <button class="filtro-btn" data-tema="logaritmos">🔬 Logaritmos</button>
+    <button class="filtro-btn" data-tema="combinatoria">🎲 Combinatória</button>
+    <button class="filtro-btn" data-tema="probabilidade">🎯 Probabilidade</button>
+    <button class="filtro-btn" data-tema="sequencias">🔗 Sequências</button>
+    <button class="filtro-btn" data-tema="complexos">🧮 Complexos</button>
+    <button class="filtro-btn" data-tema="geometria_analitica">📊 Geo. Analítica</button>
+  </div>
+
+  <div class="questao-card" id="questaoCard"></div>
+
+  <div class="navegacao">
+    <button class="btn-nav" id="btnAnterior">◀ Anterior</button>
+    <span class="contador-questao" id="contadorQuestao">Questão 1 de 1000</span>
+    <button class="btn-nav" id="btnProxima">Próxima ▶</button>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// SISTEMA DE GERAÇÃO DE 1000 QUESTÕES ÚNICAS DE MATEMÁTICA
+// ============================================================
+
+function criarRNG(semente) {
+  let s = semente;
+  return function() {
+    s = (s * 9301 + 49297) % 233280;
+    return s / 233280;
+  };
+}
+
+function gerarQuestao(numero) {
+  const rng = criarRNG(numero * 7919 + 13);
+  const temas = [
+    "aritmetica", "algebra", "geometria", "funcoes", "trigonometria",
+    "logaritmos", "combinatoria", "probabilidade", "sequencias", "complexos", "geometria_analitica"
+  ];
+  const tema = temas[(numero - 1) % temas.length];
+  
+  let dificuldade;
+  if (numero <= 200) dificuldade = "facil";
+  else if (numero <= 600) dificuldade = "media";
+  else dificuldade = "dificil";
+  
+  const geradores = {
+    aritmetica: gerarAritmetica,
+    algebra: gerarAlgebra,
+    geometria: gerarGeometria,
+    funcoes: gerarFuncoes,
+    trigonometria: gerarTrigonometria,
+    logaritmos: gerarLogaritmos,
+    combinatoria: gerarCombinatoria,
+    probabilidade: gerarProbabilidade,
+    sequencias: gerarSequencias,
+    complexos: gerarComplexos,
+    geometria_analitica: gerarGeometriaAnalitica
+  };
+  
+  const q = geradores[tema](numero, rng, dificuldade);
+  q.id = numero;
+  q.tema = tema;
+  q.dificuldade = dificuldade;
+  return q;
+}
+
+// ============================================================
+// GERADOR 1: ARITMÉTICA
+// ============================================================
+function gerarAritmetica(numero, rng, dificuldade) {
+  const variacao = numero % 5;
+  
+  if (variacao === 0) {
+    const a = Math.floor(rng() * 8) + 2;
+    const b = Math.floor(rng() * 8) + 3;
+    const c = Math.floor(rng() * 8) + 2;
+    const d = Math.floor(rng() * 8) + 3;
+    const num = a * d + c * b;
+    const den = b * d;
+    const mdc = (x, y) => y === 0 ? x : mdc(y, x % y);
+    const m = mdc(num, den);
+    const numR = num / m, denR = den / m;
+    
+    return {
+      enunciado: `Calcule a soma das frações: <strong>${a}/${b} + ${c}/${d}</strong>. Qual é o resultado simplificado?`,
+      alternativas: [`${numR}/${denR}`, `${num}/${den}`, `${numR + 1}/${denR}`, `${numR}/${denR + 1}`, `${a + c}/${b + d}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é soma de frações", explicacao: `<p>Somar frações NÃO é somar numerador com numerador e denominador com denominador. Precisamos que os denominadores sejam iguais primeiro.</p><p>É como somar pedaços de pizza: precisamos cortar todos os pedaços do mesmo tamanho!</p>`, exemplo: `Imagine que você tem ${a} pedaços de uma pizza cortada em ${b} partes, e ${c} pedaços de outra pizza cortada em ${d} partes. Para somar, precisamos cortar tudo do mesmo tamanho.` },
+        { titulo: "Encontrar um denominador comum", explicacao: `<p>O jeito mais simples é multiplicar os denominadores: ${b} × ${d} = ${b*d}.</p><p>Isso sempre funciona, mesmo que não seja o menor denominador comum.</p>`, visual: `<span class="linha">Denominador comum: ${b} × ${d} = <span class="destaque">${b*d}</span></span>` },
+        { titulo: "Ajustar os numeradores", explicacao: `<p>Para cada fração, multiplicamos o numerador pelo denominador da OUTRA fração.</p><p>É como redimensionar cada pedaço para caber no novo tamanho.</p>`, visual: `<span class="linha">${a}/${b} → (${a} × ${d})/${b*d} = ${a*d}/${b*d}</span><span class="linha">${c}/${d} → (${c} × ${b})/${b*d} = ${c*b}/${b*d}</span>` },
+        { titulo: "Somar os numeradores", explicacao: `<p>Agora que os denominadores são iguais, basta somar os numeradores.</p>`, visual: `<span class="linha">${a*d}/${b*d} + ${c*b}/${b*d} = (${a*d} + ${c*b})/${b*d}</span><span class="linha">= <span class="resultado">${num}/${den}</span></span>` },
+        { titulo: "Simplificar a fração", explicacao: `<p>Buscamos o MDC (Máximo Divisor Comum) entre ${num} e ${den} para simplificar.</p><p>MDC(${num}, ${den}) = ${m}. Dividimos ambos por ${m}.</p>`, visual: `<span class="linha">${num} ÷ ${m} = ${numR}</span><span class="linha">${den} ÷ ${m} = ${denR}</span><span class="linha resultado">Resultado: ${numR}/${denR}</span>` }
+      ],
+      checkEntendimento: `<p>1) Denominador comum: ${b*d}</p><p>2) Ajustamos: ${a*d}/${b*d} + ${c*b}/${b*d}</p><p>3) Somamos: ${num}/${den}</p><p>4) Simplificamos por ${m}: ${numR}/${denR}</p>`,
+      dica: "Para somar frações: (1) ache denominador comum, (2) ajuste numeradores, (3) some, (4) simplifique pelo MDC. Sempre confira se o resultado pode ser simplificado!",
+      resumo: `${a}/${b} + ${c}/${d} = ${num}/${den} = ${numR}/${denR} → Resposta: letra A`
+    };
+  } else if (variacao === 1) {
+    const valor = (Math.floor(rng() * 20) + 5) * 10;
+    const porc = [5, 10, 15, 20, 25, 30, 40, 50][Math.floor(rng() * 8)];
+    const resultado = (valor * porc) / 100;
+    
+    return {
+      enunciado: `Quanto é <strong>${porc}%</strong> de <strong>${valor}</strong>?`,
+      alternativas: [`${resultado}`, `${resultado + 5}`, `${resultado - 2}`, `${resultado * 2}`, `${resultado / 2}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é porcentagem", explicacao: `<p>Porcentagem significa "por cento", ou seja, "dividido por 100".</p><p>Então ${porc}% é o mesmo que ${porc}/100 = ${porc/100}.</p>`, exemplo: `Se você tem ${valor} reais e quer dar ${porc}% de desconto, precisará calcular quanto é essa parte.` },
+        { titulo: "Transformar a porcentagem em número decimal", explicacao: `<p>Dividimos a porcentagem por 100.</p>`, visual: `<span class="linha">${porc}% = ${porc} ÷ 100 = <span class="destaque">${porc/100}</span></span>` },
+        { titulo: "Multiplicar pelo valor", explicacao: `<p>Agora multiplicamos o valor total pelo decimal.</p><p>"de" em matemática significa MULTIPLICAÇÃO.</p>`, visual: `<span class="linha">${porc/100} × ${valor}</span><span class="linha">= ${resultado}</span><span class="linha resultado">✅ ${porc}% de ${valor} = ${resultado}</span>` }
+      ],
+      checkEntendimento: `<p>1) ${porc}% = ${porc/100}</p><p>2) ${porc/100} × ${valor} = ${resultado}</p>`,
+      dica: "Porcentagem é sempre: (porcentagem/100) × valor. Truque rápido: 10% é dividir por 10; 50% é dividir por 2; 25% é dividir por 4.",
+      resumo: `${porc}% de ${valor} = ${porc/100} × ${valor} = ${resultado} → Resposta: letra A`
+    };
+  } else if (variacao === 2) {
+    const a = Math.floor(rng() * 15) + 4;
+    const b = Math.floor(rng() * 15) + 6;
+    const mdcFn = (x, y) => y === 0 ? x : mdcFn(y, x % y);
+    const mmcFn = (x, y) => (x * y) / mdcFn(x, y);
+    const resultado = mmcFn(a, b);
+    
+    return {
+      enunciado: `Qual é o <strong>MMC</strong> (Mínimo Múltiplo Comum) entre <strong>${a}</strong> e <strong>${b}</strong>?`,
+      alternativas: [`${resultado}`, `${a*b}`, `${resultado + a}`, `${resultado - b}`, `${Math.max(a,b)}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é MMC", explicacao: `<p>MMC é o MENOR número que é múltiplo dos dois números ao mesmo tempo.</p><p>Múltiplos de ${a}: ${a}, ${a*2}, ${a*3}, ${a*4}...</p><p>Múltiplos de ${b}: ${b}, ${b*2}, ${b*3}...</p>`, exemplo: `Imagine dois ônibus: um passa a cada ${a} minutos, outro a cada ${b} minutos. O MMC é quando os dois passam juntos novamente.` },
+        { titulo: "Método da decomposição em primos", explicacao: `<p>Decompomos os dois números em fatores primos e pegamos cada primo com o maior expoente.</p>`, visual: `<span class="linha">${a} = ${fatorar(a)}</span><span class="linha">${b} = ${fatorar(b)}</span>` },
+        { titulo: "Calcular o MMC", explicacao: `<p>Pegamos todos os primos com o maior expoente e multiplicamos.</p>`, visual: `<span class="linha resultado">MMC(${a}, ${b}) = ${resultado}</span>` }
+      ],
+      checkEntendimento: `<p>MMC(${a}, ${b}) = ${resultado}</p><p>Confere: ${resultado} ÷ ${a} = ${resultado/a} (inteiro) e ${resultado} ÷ ${b} = ${resultado/b} (inteiro)</p>`,
+      dica: "MMC = menor múltiplo comum. MDC = maior divisor comum. Lembre: para MMC, multiplique fatores primos com MAIOR expoente. Para MDC, use o MENOR expoente.",
+      resumo: `MMC(${a}, ${b}) = ${resultado} → Resposta: letra A`
+    };
+  } else if (variacao === 3) {
+    const base = Math.floor(rng() * 12) + 4;
+    const quadrado = base * base;
+    
+    return {
+      enunciado: `Calcule o valor de <strong>√${quadrado}</strong>.`,
+      alternativas: [`${base}`, `${base+1}`, `${base-1}`, `${quadrado/2}`, `${base*2}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é raiz quadrada", explicacao: `<p>Raiz quadrada pergunta: "qual número multiplicado por ele mesmo dá ${quadrado}?"</p>`, exemplo: `Se você tem ${quadrado} quadradinhos e quer formar um quadrado grande, quantos quadradinhos terá cada lado?` },
+        { titulo: "Decompor em fatores primos", explicacao: `<p>Decompomos ${quadrado} em fatores primos.</p>`, visual: `<span class="linha">${quadrado} = ${fatorar(quadrado)}</span>` },
+        { titulo: "Extrair a raiz", explicacao: `<p>Agrupamos em pares. Cada par sai da raiz.</p>`, visual: `<span class="linha">√${quadrado} = √(${base}²)</span><span class="linha resultado">√${quadrado} = ${base}</span>` }
+      ],
+      checkEntendimento: `<p>${base} × ${base} = ${quadrado} ✓</p><p>Portanto √${quadrado} = ${base}</p>`,
+      dica: "Para raiz quadrada, fatore o número em primos e agrupe em pares. Cada par gera um número fora da raiz.",
+      resumo: `√${quadrado} = ${base} → Resposta: letra A`
+    };
+  } else {
+    const a = Math.floor(rng() * 30) + 12;
+    const b = Math.floor(rng() * 30) + 18;
+    const mdcFn = (x, y) => y === 0 ? x : mdcFn(y, x % y);
+    const resultado = mdcFn(a, b);
+    
+    return {
+      enunciado: `Qual é o <strong>MDC</strong> (Máximo Divisor Comum) entre <strong>${a}</strong> e <strong>${b}</strong>?`,
+      alternativas: [`${resultado}`, `${resultado*2}`, `${resultado+2}`, `${Math.min(a,b)}`, `${a+b}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é MDC", explicacao: `<p>MDC é o MAIOR número que divide os dois ao mesmo tempo.</p>`, exemplo: `Se você tem ${a} balas e ${b} chocolates para dividir igualmente entre o máximo de crianças, o MDC é esse número de crianças.` },
+        { titulo: "Fatorar os dois números", explicacao: `<p>Decompomos em primos.</p>`, visual: `<span class="linha">${a} = ${fatorar(a)}</span><span class="linha">${b} = ${fatorar(b)}</span>` },
+        { titulo: "Calcular o MDC", explicacao: `<p>Pegamos os primos COMUNS com o MENOR expoente.</p>`, visual: `<span class="linha resultado">MDC(${a}, ${b}) = ${resultado}</span>` }
+      ],
+      checkEntendimento: `<p>${a} ÷ ${resultado} = ${a/resultado} (inteiro) ✓</p><p>${b} ÷ ${resultado} = ${b/resultado} (inteiro) ✓</p>`,
+      dica: "MDC usa primos COMUNS com MENOR expoente. MMC usa TODOS os primos com MAIOR expoente. Nunca confunda!",
+      resumo: `MDC(${a}, ${b}) = ${resultado} → Resposta: letra A`
+    };
+  }
+}
+
+function fatorar(n) {
+  let resultado = [];
+  let d = 2;
+  while (n > 1) {
+    while (n % d === 0) {
+      resultado.push(d);
+      n /= d;
+    }
+    d++;
+  }
+  const contagem = {};
+  resultado.forEach(p => contagem[p] = (contagem[p] || 0) + 1);
+  return Object.entries(contagem).map(([p, c]) => c > 1 ? `${p}^${c}` : p).join(" × ");
+}
+
+// ============================================================
+// GERADOR 2: ÁLGEBRA
+// ============================================================
+function gerarAlgebra(numero, rng, dificuldade) {
+  const variacao = numero % 6;
+  
+  if (variacao === 0) {
+    const a = Math.floor(rng() * 8) + 2;
+    const x = Math.floor(rng() * 10) + 1;
+    const b = Math.floor(rng() * 15) + 1;
+    const c = a * x + b;
+    
+    return {
+      enunciado: `Resolva a equação: <strong>${a}x + ${b} = ${c}</strong>. Qual o valor de x?`,
+      alternativas: [`${x}`, `${x+1}`, `${x-1}`, `${x*2}`, `${a+b}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é uma equação", explicacao: `<p>Equação é como uma balança em equilíbrio. Um lado pesa ${a}x + ${b} e o outro pesa ${c}.</p>`, exemplo: `Pense em caixas misteriosas: temos ${a} caixas iguais + ${b} bolinhas soltas = ${c} bolinhas no total. Cada caixa tem quantas bolinhas?` },
+        { titulo: "Isolar o termo com x", explicacao: `<p>Subtraímos ${b} dos dois lados para tirar o número solto do lado esquerdo.</p>`, visual: `<span class="linha">${a}x + ${b} <span class="destaque">- ${b}</span> = ${c} <span class="destaque">- ${b}</span></span><span class="linha">${a}x = ${c-b}</span>` },
+        { titulo: "Dividir pelo coeficiente", explicacao: `<p>Dividimos os dois lados por ${a} para isolar x.</p>`, visual: `<span class="linha">${a}x ÷ ${a} = ${c-b} ÷ ${a}</span><span class="linha resultado">x = ${x}</span>` },
+        { titulo: "Verificar", explicacao: `<p>Substituímos x = ${x} na equação original.</p>`, visual: `<span class="linha">${a} × ${x} + ${b} = ${a*x} + ${b} = ${c} ✓</span>` }
+      ],
+      checkEntendimento: `<p>1) Subtrair ${b}: ${a}x = ${c-b}</p><p>2) Dividir por ${a}: x = ${x}</p><p>3) Conferir: ${a}×${x}+${b} = ${c} ✓</p>`,
+      dica: "Regra de ouro: o que fazemos de um lado, fazemos do outro. Operações inversas: subtraia para tirar soma, divida para tirar multiplicação.",
+      resumo: `${a}x + ${b} = ${c} → ${a}x = ${c-b} → x = ${x} → Resposta: letra A`
+    };
+  } else if (variacao === 1) {
+    const a = Math.floor(rng() * 10) + 2;
+    
+    return {
+      enunciado: `Desenvolva <strong>(x + ${a})²</strong>. Qual é a forma expandida?`,
+      alternativas: [`x² + ${2*a}x + ${a*a}`, `x² + ${a}x + ${a*a}`, `x² + ${2*a}x + ${a}`, `x² + ${a*a}`, `x² + ${a}x + ${2*a}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é quadrado de uma soma", explicacao: `<p>(x + ${a})² significa (x + ${a}) × (x + ${a}). É o quadrado de uma soma.</p>`, exemplo: `Imagine um quadrado de lado (x + ${a}). A área total é x² + ${2*a}x + ${a*a}.` },
+        { titulo: "Aplicar a fórmula do quadrado da soma", explicacao: `<p>Fórmula: (a + b)² = a² + 2ab + b²</p><p>Onde a = x e b = ${a}.</p>`, visual: `<span class="linha">(x + ${a})² = x² + 2·x·${a} + ${a}²</span><span class="linha">= x² + ${2*a}x + ${a*a}</span>` },
+        { titulo: "Verificar multiplicando", explicacao: `<p>Podemos conferir fazendo a distributiva.</p>`, visual: `<span class="linha">(x + ${a})(x + ${a})</span><span class="linha">= x² + ${a}x + ${a}x + ${a*a}</span><span class="linha resultado">= x² + ${2*a}x + ${a*a}</span>` }
+      ],
+      checkEntendimento: `<p>Quadrado da soma: (a+b)² = a² + 2ab + b²</p><p>(x + ${a})² = x² + ${2*a}x + ${a*a}</p>`,
+      dica: "Decore: (a+b)² = a² + 2ab + b²; (a-b)² = a² - 2ab + b²; (a+b)(a-b) = a² - b². São essenciais no ITA!",
+      resumo: `(x + ${a})² = x² + ${2*a}x + ${a*a} → Resposta: letra A`
+    };
+  } else if (variacao === 2) {
+    const a = Math.floor(rng() * 10) + 2;
+    const b = Math.floor(rng() * 10) + 2;
+    
+    return {
+      enunciado: `Fatore a expressão <strong>x² + ${a+b}x + ${a*b}</strong>.`,
+      alternativas: [`(x + ${a})(x + ${b})`, `(x + ${a+b})(x + 1)`, `(x - ${a})(x - ${b})`, `(x + ${a*b})(x + 1)`, `(x + ${a})²`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é fatorar", explicacao: `<p>Fatorar é transformar uma soma em uma multiplicação. É o caminho inverso da distributiva.</p>`, exemplo: `É como desmontar uma construção em blocos menores para entender como foi feita.` },
+        { titulo: "Identificar o padrão", explicacao: `<p>Buscamos dois números que SOMADOS dão ${a+b} e MULTIPLICADOS dão ${a*b}.</p><p>Esses números são ${a} e ${b}.</p>`, visual: `<span class="linha">${a} + ${b} = ${a+b} ✓ (soma)</span><span class="linha">${a} × ${b} = ${a*b} ✓ (produto)</span>` },
+        { titulo: "Escrever a forma fatorada", explicacao: `<p>A forma fatorada é (x + primeiro)(x + segundo).</p>`, visual: `<span class="linha">x² + ${a+b}x + ${a*b}</span><span class="linha resultado">= (x + ${a})(x + ${b})</span>` },
+        { titulo: "Verificar com distributiva", explicacao: `<p>Multiplicamos de volta para conferir.</p>`, visual: `<span class="linha">(x + ${a})(x + ${b}) = x² + ${a+b}x + ${a*b} ✓</span>` }
+      ],
+      checkEntendimento: `<p>Buscamos a e b tais que: soma = ${a+b} e produto = ${a*b}</p><p>Encontramos: ${a} e ${b}</p><p>Resultado: (x + ${a})(x + ${b})</p>`,
+      dica: "Para fatorar x² + Sx + P, procure dois números que somam S e multiplicam P. Se P for negativo, um número é positivo e o outro negativo!",
+      resumo: `x² + ${a+b}x + ${a*b} = (x + ${a})(x + ${b}) → Resposta: letra A`
+    };
+  } else if (variacao === 3) {
+    const r1 = Math.floor(rng() * 6) + 1;
+    const r2 = Math.floor(rng() * 6) + 1;
+    const soma = r1 + r2;
+    const produto = r1 * r2;
+    const delta = soma * soma - 4 * produto;
+    
+    return {
+      enunciado: `Resolva a equação <strong>x² - ${soma}x + ${produto} = 0</strong>. Quais são as raízes?`,
+      alternativas: [`x = ${r1} ou x = ${r2}`, `x = ${r1+1} ou x = ${r2-1}`, `x = -${r1} ou x = -${r2}`, `x = ${r1*2} ou x = ${r2*2}`, `x = 0 ou x = ${soma}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Identificar coeficientes", explicacao: `<p>Na equação x² - ${soma}x + ${produto} = 0, comparamos com ax² + bx + c = 0:</p><p>a = 1, b = -${soma}, c = ${produto}</p>`, exemplo: `As raízes são os valores de x que fazem a equação valer zero. São os pontos onde a parábola cruza o eixo x.` },
+        { titulo: "Calcular o discriminante (Δ)", explicacao: `<p>Δ = b² - 4ac</p>`, visual: `<span class="linha">Δ = (-${soma})² - 4·1·${produto}</span><span class="linha">Δ = ${soma*soma} - ${4*produto}</span><span class="linha resultado">Δ = ${delta}</span>` },
+        { titulo: "Aplicar Bhaskara", explicacao: `<p>x = (-b ± √Δ) / 2a</p>`, visual: `<span class="linha">x = (${soma} ± √${delta}) / 2</span><span class="linha">x = (${soma} ± ${Math.sqrt(delta)}) / 2</span>` },
+        { titulo: "Encontrar as duas raízes", explicacao: `<p>Calculamos separadamente com + e com -.</p>`, visual: `<span class="linha">x₁ = (${soma} + ${Math.sqrt(delta)}) / 2 = ${r1}</span><span class="linha">x₂ = (${soma} - ${Math.sqrt(delta)}) / 2 = ${r2}</span><span class="linha resultado">x = ${r1} ou x = ${r2}</span>` },
+        { titulo: "Verificar", explicacao: `<p>Substituímos as raízes na equação original.</p>`, visual: `<span class="linha">Para x = ${r1}: ${r1}² - ${soma}·${r1} + ${produto} = 0 ✓</span><span class="linha">Para x = ${r2}: ${r2}² - ${soma}·${r2} + ${produto} = 0 ✓</span>` }
+      ],
+      checkEntendimento: `<p>1) a=1, b=-${soma}, c=${produto}</p><p>2) Δ = ${delta}</p><p>3) x = (${soma} ± ${Math.sqrt(delta)})/2</p><p>4) x = ${r1} ou x = ${r2}</p>`,
+      dica: "Soma das raízes = -b/a. Produto das raízes = c/a. Use isso para conferir! Se a soma das suas raízes não dá ${soma}, algo está errado.",
+      resumo: `x² - ${soma}x + ${produto} = 0 → Δ = ${delta} → x = ${r1} ou x = ${r2} → Resposta: letra A`
+    };
+  } else if (variacao === 4) {
+    const x = Math.floor(rng() * 8) + 2;
+    const y = Math.floor(rng() * 8) + 2;
+    const s = x + y;
+    const d = x - y;
+    
+    return {
+      enunciado: `Resolva o sistema:<br><strong>x + y = ${s}</strong><br><strong>x - y = ${d}</strong><br>Quais são os valores de x e y?`,
+      alternativas: [`x = ${x}, y = ${y}`, `x = ${y}, y = ${x}`, `x = ${s}, y = ${d}`, `x = ${x+1}, y = ${y-1}`, `x = ${x*2}, y = ${y/2}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é um sistema", explicacao: `<p>Temos DUAS equações e DUAS incógnitas (x e y). Precisamos achar valores que satisfaçam as DUAS ao mesmo tempo.</p>`, exemplo: `É como descobrir dois números sabendo a soma e a diferença entre eles.` },
+        { titulo: "Método da adição", explicacao: `<p>Somamos as duas equações para eliminar uma incógnita.</p>`, visual: `<span class="linha">  x + y = ${s}</span><span class="linha">+ x - y = ${d}</span><span class="linha">─────────────</span><span class="linha">  2x = ${s+d}</span><span class="linha resultado">  x = ${x}</span>` },
+        { titulo: "Encontrar o valor de y", explicacao: `<p>Substituímos x = ${x} em qualquer equação. Vamos usar a primeira.</p>`, visual: `<span class="linha">${x} + y = ${s}</span><span class="linha">y = ${s} - ${x}</span><span class="linha resultado">y = ${y}</span>` },
+        { titulo: "Verificar na segunda equação", explicacao: `<p>Conferimos se x - y = ${d}.</p>`, visual: `<span class="linha">${x} - ${y} = ${d} ✓</span>` }
+      ],
+      checkEntendimento: `<p>1) Somar equações: 2x = ${s+d} → x = ${x}</p><p>2) Substituir: y = ${s} - ${x} = ${y}</p><p>3) Verificar: ${x}+${y}=${s} ✓ e ${x}-${y}=${d} ✓</p>`,
+      dica: "No método da adição, some ou subtraia as equações para eliminar uma incógnita. Funciona melhor quando os coeficientes são opostos (+y e -y, por exemplo).",
+      resumo: `x + y = ${s} e x - y = ${d} → x = ${x}, y = ${y} → Resposta: letra A`
+    };
+  } else {
+    const a = Math.floor(rng() * 5) + 2;
+    const b = Math.floor(rng() * 10) + 1;
+    const c = Math.floor(rng() * 20) + 5;
+    const xMin = Math.ceil((c - b) / a) + Math.floor(rng() * 3);
+    
+    return {
+      enunciado: `Resolva a inequação <strong>${a}x + ${b} > ${c}</strong>. Qual o menor valor inteiro de x que satisfaz?`,
+      alternativas: [`${xMin}`, `${xMin-1}`, `${xMin+1}`, `0`, `${a+b}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender inequação", explicacao: `<p>Inequação é como uma equação, mas em vez de = temos >, <, ≥ ou ≤.</p><p>Resolvemos do mesmo jeito, mas o resultado é um INTERVALO de valores.</p>`, exemplo: `Imagine que você precisa de mais de ${c} reais. Cada item custa ${a} reais e você já tem ${b} reais. Quantos itens você precisa vender?` },
+        { titulo: "Isolar x", explicacao: `<p>Subtraímos ${b} dos dois lados e depois dividimos por ${a}.</p>`, visual: `<span class="linha">${a}x + ${b} > ${c}</span><span class="linha">${a}x > ${c-b}</span><span class="linha">x > ${(c-b)/a}</span>` },
+        { titulo: "Encontrar o menor inteiro", explicacao: `<p>O menor número inteiro MAIOR que ${(c-b)/a} é ${xMin}.</p>`, visual: `<span class="linha">x > ${(c-b)/a}</span><span class="linha resultado">x ≥ ${xMin} (menor inteiro)</span>` },
+        { titulo: "Verificar", explicacao: `<p>Testamos com x = ${xMin} e com x = ${xMin - 1}.</p>`, visual: `<span class="linha">x = ${xMin}: ${a}·${xMin}+${b} = ${a*xMin+b} > ${c} ✓</span>` }
+      ],
+      checkEntendimento: `<p>1) ${a}x > ${c-b}</p><p>2) x > ${(c-b)/a}</p><p>3) Menor inteiro: ${xMin}</p><p>4) Verificar: ${a}·${xMin}+${b} = ${a*xMin+b} > ${c} ✓</p>`,
+      dica: "CUIDADO: quando multiplicamos ou dividimos uma inequação por número NEGATIVO, o sinal de > ou < INVERTE! Este é o erro mais comum.",
+      resumo: `${a}x + ${b} > ${c} → x > ${(c-b)/a} → menor inteiro = ${xMin} → Resposta: letra A`
+    };
+  }
+}
+
+// ============================================================
+// GERADOR 3: GEOMETRIA
+// ============================================================
+function gerarGeometria(numero, rng, dificuldade) {
+  const variacao = numero % 5;
+  
+  if (variacao === 0) {
+    const base = Math.floor(rng() * 15) + 5;
+    const altura = Math.floor(rng() * 12) + 4;
+    const area = (base * altura) / 2;
+    
+    return {
+      enunciado: `Um triângulo tem <strong>base = ${base} cm</strong> e <strong>altura = ${altura} cm</strong>. Qual é a área?`,
+      alternativas: [`${area} cm²`, `${base*altura} cm²`, `${area+5} cm²`, `${(base+altura)/2} cm²`, `${area*2} cm²`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é área", explicacao: `<p>Área é a medida da superfície. No triângulo, é como se fosse "metade de um retângulo".</p>`, exemplo: `Se você tem um terreno triangular, a área é o quanto de grama precisaria para cobrir todo ele.` },
+        { titulo: "Fórmula da área do triângulo", explicacao: `<p>Área = (base × altura) ÷ 2</p><p>Dividimos por 2 porque o triângulo é metade de um retângulo de mesma base e altura.</p>`, visual: `<span class="linha">A = (${base} × ${altura}) / 2</span><span class="linha">A = ${base*altura} / 2</span><span class="linha resultado">A = ${area} cm²</span>` }
+      ],
+      checkEntendimento: `<p>1) A = (b × h) / 2</p><p>2) A = (${base} × ${altura}) / 2 = ${area} cm²</p>`,
+      dica: "Área do triângulo = metade de base × altura. Sempre divida por 2! Muito comum esquecer o ÷2 e errar.",
+      resumo: `A = (${base} × ${altura})/2 = ${area} cm² → Resposta: letra A`
+    };
+  } else if (variacao === 1) {
+    const raio = Math.floor(rng() * 10) + 2;
+    const comprimento = (2 * Math.PI * raio).toFixed(2);
+    
+    return {
+      enunciado: `Uma circunferência tem raio <strong>${raio} cm</strong>. Qual é o comprimento? (Use π ≈ 3,14)`,
+      alternativas: [`${comprimento} cm`, `${(Math.PI * raio * raio).toFixed(2)} cm`, `${(Math.PI * raio).toFixed(2)} cm`, `${raio*2} cm`, `${raio} cm`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é comprimento", explicacao: `<p>Comprimento é o "contorno" da circunferência. Como se você passasse uma fita métrica ao redor dela.</p>`, exemplo: `Imagine medir a volta de uma pizza com um barbante. O comprimento é o tamanho desse barbante.` },
+        { titulo: "Fórmula do comprimento", explicacao: `<p>C = 2πr</p><p>O 2 aparece porque o raio é a metade do diâmetro, e o comprimento é π × diâmetro.</p>`, visual: `<span class="linha">C = 2 × 3,14 × ${raio}</span><span class="linha resultado">C ≈ ${comprimento} cm</span>` }
+      ],
+      checkEntendimento: `<p>1) C = 2πr</p><p>2) C = 2 × 3,14 × ${raio} ≈ ${comprimento} cm</p>`,
+      dica: "Comprimento = 2πr (contorno). Área = πr² (interior). Nunca confunda!",
+      resumo: `C = 2πr = 2 × 3,14 × ${raio} ≈ ${comprimento} cm → Resposta: letra A`
+    };
+  } else if (variacao === 2) {
+    const cateto1 = Math.floor(rng() * 10) + 3;
+    const cateto2 = Math.floor(rng() * 10) + 3;
+    const hip = Math.sqrt(cateto1 * cateto1 + cateto2 * cateto2);
+    const hipExata = Number.isInteger(hip);
+    
+    return {
+      enunciado: `Um triângulo retângulo tem catetos <strong>${cateto1}</strong> e <strong>${cateto2}</strong>. Qual a hipotenusa?`,
+      alternativas: [hipExata ? `${hip}` : `${hip.toFixed(2)}`, `${cateto1 + cateto2}`, `${Math.abs(cateto1 - cateto2)}`, `${cateto1 * cateto2}`, `${(cateto1 + cateto2) / 2}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Identificar o triângulo retângulo", explicacao: `<p>Triângulo retângulo tem um ângulo de 90°. Os lados que formam esse ângulo são catetos. O lado oposto é a hipotenusa (o maior lado).</p>`, exemplo: `Imagine uma escada apoiada na parede. A parede, o chão e a escada formam um triângulo retângulo. A escada é a hipotenusa.` },
+        { titulo: "Aplicar o Teorema de Pitágoras", explicacao: `<p>Fórmula: hipotenusa² = cateto² + cateto²</p>`, visual: `<span class="linha">h² = ${cateto1}² + ${cateto2}²</span><span class="linha">h² = ${cateto1*cateto1 + cateto2*cateto2}</span><span class="linha resultado">h = ${hipExata ? hip : hip.toFixed(4)}</span>` }
+      ],
+      checkEntendimento: `<p>1) h² = ${cateto1}² + ${cateto2}²</p><p>2) h² = ${cateto1*cateto1 + cateto2*cateto2}</p><p>3) h = ${hipExata ? hip : hip.toFixed(4)}</p>`,
+      dica: "Pitágoras só vale para triângulos RETÂNGULOS. Trios famosos: (3,4,5), (5,12,13), (6,8,10), (8,15,17), (7,24,25). Memorize!",
+      resumo: `h² = ${cateto1}² + ${cateto2}² = ${cateto1*cateto1 + cateto2*cateto2} → h = ${hipExata ? hip : hip.toFixed(4)} → Resposta: letra A`
+    };
+  } else if (variacao === 3) {
+    const raio = Math.floor(rng() * 10) + 2;
+    const area = (Math.PI * raio * raio).toFixed(2);
+    
+    return {
+      enunciado: `Um círculo tem raio <strong>${raio} cm</strong>. Qual é a área? (Use π ≈ 3,14)`,
+      alternativas: [`${area} cm²`, `${(2*Math.PI*raio).toFixed(2)} cm²`, `${raio*raio} cm²`, `${raio*2} cm²`, `${(Math.PI*raio).toFixed(2)} cm²`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é área do círculo", explicacao: `<p>Área é a superfície INTERNA do círculo. Como quanto de tinta você precisa para pintá-lo.</p>`, exemplo: `Imagine uma pizza. A área é toda a superfície comestível (sem a borda).` },
+        { titulo: "Fórmula da área", explicacao: `<p>A = πr²</p>`, visual: `<span class="linha">A = 3,14 × ${raio}²</span><span class="linha">A = 3,14 × ${raio*raio}</span><span class="linha resultado">A ≈ ${area} cm²</span>` }
+      ],
+      checkEntendimento: `<p>1) A = πr²</p><p>2) A = 3,14 × ${raio}² ≈ ${area} cm²</p>`,
+      dica: "Área = πr². Sempre eleve o raio ao quadrado PRIMEIRO, depois multiplique por π.",
+      resumo: `A = πr² = 3,14 × ${raio}² ≈ ${area} cm² → Resposta: letra A`
+    };
+  } else {
+    const aresta = Math.floor(rng() * 8) + 2;
+    const volume = aresta ** 3;
+    
+    return {
+      enunciado: `Um cubo tem aresta <strong>${aresta} cm</strong>. Qual é o volume?`,
+      alternativas: [`${volume} cm³`, `${aresta*aresta} cm³`, `${aresta*6} cm³`, `${volume/2} cm³`, `${aresta*3} cm³`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é volume", explicacao: `<p>Volume é o espaço que o objeto ocupa. Como a quantidade de água que caberia dentro dele.</p>`, exemplo: `Imagine um cubo mágico de ${aresta} cm de lado. O volume é quanto de água caberia dentro.` },
+        { titulo: "Fórmula do volume do cubo", explicacao: `<p>V = aresta³</p>`, visual: `<span class="linha">V = ${aresta}³ = ${aresta} × ${aresta} × ${aresta}</span><span class="linha resultado">V = ${volume} cm³</span>` }
+      ],
+      checkEntendimento: `<p>1) V = a³</p><p>2) V = ${aresta}³ = ${volume} cm³</p>`,
+      dica: "Volume do cubo = a³. Sempre multiplique a aresta por ela mesma TRÊS vezes. Unidade: cm³.",
+      resumo: `V = ${aresta}³ = ${volume} cm³ → Resposta: letra A`
+    };
+  }
+}
+
+// ============================================================
+// GERADOR 4: FUNÇÕES
+// ============================================================
+function gerarFuncoes(numero, rng, dificuldade) {
+  const variacao = numero % 5;
+  
+  if (variacao === 0) {
+    const a = Math.floor(rng() * 6) + 2;
+    const b = Math.floor(rng() * 10) + 1;
+    const x = Math.floor(rng() * 8) + 1;
+    const fx = a * x + b;
+    
+    return {
+      enunciado: `Dada a função f(x) = ${a}x + ${b}, calcule <strong>f(${x})</strong>.`,
+      alternativas: [`${fx}`, `${a+b}`, `${a*x}`, `${b*x}`, `${fx+5}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é função", explicacao: `<p>Função é uma "máquina" que transforma um número de entrada em um número de saída.</p>`, exemplo: `Pense numa máquina de sorvete: entra leite (x), sai sorvete (f(x)). A regra é: ${a}×leite + ${b}.` },
+        { titulo: "Substituir x pelo valor dado", explicacao: `<p>Onde tiver x, colocamos ${x}.</p>`, visual: `<span class="linha">f(${x}) = ${a}·(${x}) + ${b}</span><span class="linha">= ${a*x} + ${b}</span><span class="linha resultado">= ${fx}</span>` }
+      ],
+      checkEntendimento: `<p>f(x) = ${a}x + ${b}</p><p>f(${x}) = ${a}·${x} + ${b} = ${fx}</p>`,
+      dica: "Para calcular f(valor), substitua TODOS os x por esse valor. Cuidado com o sinal!",
+      resumo: `f(${x}) = ${a}·${x} + ${b} = ${fx} → Resposta: letra A`
+    };
+  } else if (variacao === 1) {
+    const a = Math.floor(rng() * 5) + 2;
+    const b = Math.floor(rng() * 15) + 1;
+    const raiz = -b / a;
+    
+    return {
+      enunciado: `Qual é a raiz (zero) da função f(x) = ${a}x + ${b}?`,
+      alternativas: [`${raiz}`, `${b/a}`, `${-b}`, `${a}`, `${b}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é raiz de uma função", explicacao: `<p>A raiz (ou zero) é o valor de x que faz f(x) = 0.</p><p>É o ponto onde o gráfico cruza o eixo x.</p>`, exemplo: `É como perguntar: "em que momento a máquina dá zero?"` },
+        { titulo: "Igualar a zero", explicacao: `<p>Fazemos f(x) = 0 e resolvemos.</p>`, visual: `<span class="linha">${a}x + ${b} = 0</span><span class="linha">${a}x = -${b}</span><span class="linha resultado">x = ${raiz}</span>` }
+      ],
+      checkEntendimento: `<p>1) f(x) = 0: ${a}x + ${b} = 0</p><p>2) x = -${b}/${a} = ${raiz}</p>`,
+      dica: "Raiz da função afim f(x) = ax + b é x = -b/a. Sempre iguale a função a ZERO!",
+      resumo: `${a}x + ${b} = 0 → x = ${raiz} → Resposta: letra A`
+    };
+  } else if (variacao === 2) {
+    const b = -Math.floor(rng() * 8) - 2;
+    const c = Math.floor(rng() * 10) + 1;
+    const x = Math.floor(rng() * 6) - 2;
+    const fx = x * x + b * x + c;
+    
+    return {
+      enunciado: `Dada f(x) = x² ${b >= 0 ? "+" : "-"} ${Math.abs(b)}x + ${c}, calcule <strong>f(${x})</strong>.`,
+      alternativas: [`${fx}`, `${fx+3}`, `${fx-2}`, `${fx*2}`, `${c}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender a função quadrática", explicacao: `<p>Função quadrática tem x² (parábola). Substituímos o valor de x em TODOS os lugares.</p>`, exemplo: `Cuidado com o x negativo! (-${Math.abs(x)})² é positivo, mas (-${Math.abs(x)}) NÃO é.` },
+        { titulo: "Substituir x", explicacao: `<p>Colocamos ${x} onde tem x.</p>`, visual: `<span class="linha">f(${x}) = (${x})² ${b >= 0 ? "+" : "-"} ${Math.abs(b)}·(${x}) + ${c}</span><span class="linha">= ${x*x} ${b*x >= 0 ? "+" : "-"} ${Math.abs(b*x)} + ${c}</span><span class="linha resultado">= ${fx}</span>` }
+      ],
+      checkEntendimento: `<p>f(${x}) = (${x})² + (${b})·(${x}) + ${c}</p><p>= ${x*x} + ${b*x} + ${c} = ${fx}</p>`,
+      dica: "Ao substituir número NEGATIVO em x², o resultado é POSITIVO. Sempre use parênteses: (-3)² = 9, mas -3² = -9.",
+      resumo: `f(${x}) = ${fx} → Resposta: letra A`
+    };
+  } else if (variacao === 3) {
+    const a = Math.floor(rng() * 5) + 1;
+    
+    return {
+      enunciado: `Qual é o domínio da função f(x) = √(x - ${a})?`,
+      alternativas: [`x ≥ ${a}`, `x > ${a}`, `x ≤ ${a}`, `x ≠ ${a}`, `Todos os reais`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é domínio", explicacao: `<p>Domínio são TODOS os valores de x que fazem a função existir.</p><p>No caso de raiz quadrada, o que está DENTRO não pode ser negativo.</p>`, exemplo: `É como uma máquina que só aceita certos ingredientes.` },
+        { titulo: "Impor a condição", explicacao: `<p>O radicando deve ser ≥ 0.</p>`, visual: `<span class="linha">x - ${a} ≥ 0</span><span class="linha">x ≥ ${a}</span><span class="linha resultado">Domínio: [${a}, +∞)</span>` }
+      ],
+      checkEntendimento: `<p>1) Radicando ≥ 0: x - ${a} ≥ 0</p><p>2) x ≥ ${a}</p>`,
+      dica: "Domínio de √(expressão): expressão ≥ 0. Domínio de 1/(expressão): expressão ≠ 0. Domínio de log(expressão): expressão > 0.",
+      resumo: `x - ${a} ≥ 0 → x ≥ ${a} → Domínio: [${a}, +∞) → Resposta: letra A`
+    };
+  } else {
+    const a = Math.floor(rng() * 5) + 2;
+    const b = Math.floor(rng() * 8) + 1;
+    
+    return {
+      enunciado: `Qual é a função inversa de f(x) = ${a}x + ${b}?`,
+      alternativas: [`f⁻¹(x) = (x - ${b})/${a}`, `f⁻¹(x) = ${a}x - ${b}`, `f⁻¹(x) = (x + ${b})/${a}`, `f⁻¹(x) = x/${a} + ${b}`, `f⁻¹(x) = ${a}/(x - ${b})`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender função inversa", explicacao: `<p>A inversa "desfaz" o que a função faz. Se f leva de A para B, f⁻¹ leva de B para A.</p>`, exemplo: `Se f(x) = "vestir casaco", f⁻¹(x) = "tirar casaco".` },
+        { titulo: "Escrever y = f(x)", explicacao: `<p>Começamos escrevendo a função com y.</p>`, visual: `<span class="linha">y = ${a}x + ${b}</span>` },
+        { titulo: "Trocar x e y", explicacao: `<p>Agora trocamos as letras.</p>`, visual: `<span class="linha">x = ${a}y + ${b}</span>` },
+        { titulo: "Isolar y", explicacao: `<p>Resolvemos para y.</p>`, visual: `<span class="linha">x - ${b} = ${a}y</span><span class="linha resultado">f⁻¹(x) = (x - ${b})/${a}</span>` }
+      ],
+      checkEntendimento: `<p>1) y = ${a}x + ${b}</p><p>2) Trocar: x = ${a}y + ${b}</p><p>3) Isolar: y = (x-${b})/${a}</p>`,
+      dica: "Para achar a inversa: (1) escreva y = f(x), (2) troque x por y, (3) isole y, (4) verifique com f(f⁻¹(x)) = x.",
+      resumo: `f⁻¹(x) = (x - ${b})/${a} → Resposta: letra A`
+    };
+  }
+}
+
+// ============================================================
+// GERADOR 5: TRIGONOMETRIA
+// ============================================================
+function gerarTrigonometria(numero, rng, dificuldade) {
+  const variacao = numero % 4;
+  
+  if (variacao === 0) {
+    const angulos = [
+      { ang: 30, sen: "1/2", cos: "√3/2", tg: "√3/3" },
+      { ang: 45, sen: "√2/2", cos: "√2/2", tg: "1" },
+      { ang: 60, sen: "√3/2", cos: "1/2", tg: "√3" }
+    ];
+    const esc = angulos[Math.floor(rng() * 3)];
+    const func = ["sen", "cos", "tg"][Math.floor(rng() * 3)];
+    const valor = func === "sen" ? esc.sen : func === "cos" ? esc.cos : esc.tg;
+    const nome = func === "sen" ? "seno" : func === "cos" ? "cosseno" : "tangente";
+    
+    return {
+      enunciado: `Qual é o valor do <strong>${nome} de ${esc.ang}°</strong>?`,
+      alternativas: [valor, "1/2", "√2/2", "√3/2", "1"],
+      correta: 0,
+      resolucao: [
+        { titulo: "Lembrar os ângulos notáveis", explicacao: `<p>Ângulos notáveis (30°, 45°, 60°) têm valores que aparecem MUITO.</p>`, exemplo: `Pense em um triângulo equilátero cortado ao meio — ele gera os ângulos de 30° e 60°. Um quadrado cortado na diagonal gera 45°.` },
+        { titulo: "Tabela dos ângulos notáveis", explicacao: `<p>A tabela abaixo é essencial:</p>`, visual: `<span class="linha"><span class="destaque">Ângulo  |  sen   |  cos   |  tg</span></span><span class="linha">  30°   |  1/2   | √3/2   | √3/3</span><span class="linha">  45°   | √2/2   | √2/2   |  1</span><span class="linha">  60°   | √3/2   |  1/2   | √3</span>` },
+        { titulo: "Identificar o valor pedido", explicacao: `<p>O problema pede ${nome} de ${esc.ang}°.</p><p>Consultando a tabela: <strong>${nome}(${esc.ang}°) = ${valor}</strong></p>`, visual: `<span class="linha resultado">${nome}(${esc.ang}°) = ${valor}</span>` }
+      ],
+      checkEntendimento: `<p>Da tabela: ${nome}(${esc.ang}°) = ${valor}</p>`,
+      dica: "Memorize: sen30 = 1/2, sen45 = √2/2, sen60 = √3/2. Os cossenos são na ordem inversa! E tg = sen/cos.",
+      resumo: `${nome}(${esc.ang}°) = ${valor} → Resposta: letra A`
+    };
+  } else if (variacao === 1) {
+    const sen = ["1/2", "√2/2", "√3/2"][Math.floor(rng() * 3)];
+    const cos = { "1/2": "√3/2", "√2/2": "√2/2", "√3/2": "1/2" }[sen];
+    
+    return {
+      enunciado: `Sabendo que <strong>sen(x) = ${sen}</strong>, qual é o valor de cos(x)? (x está no 1º quadrante)`,
+      alternativas: [cos, sen, "1", "0", "-" + cos],
+      correta: 0,
+      resolucao: [
+        { titulo: "Lembrar a identidade fundamental", explicacao: `<p>A relação fundamental da trigonometria é:</p><p><strong>sen²(x) + cos²(x) = 1</strong></p>`, exemplo: `É como se seno e cosseno fossem as duas pernas de um triângulo retângulo inscrito no círculo de raio 1.` },
+        { titulo: "Substituir o valor de sen", explicacao: `<p>Colocamos sen(x) = ${sen}.</p>`, visual: `<span class="linha">(${sen})² + cos²(x) = 1</span>` },
+        { titulo: "Isolar cos²(x)", explicacao: `<p>Subtraímos o valor de sen² dos dois lados.</p>`, visual: `<span class="linha">cos²(x) = 1 - (${sen})²</span><span class="linha resultado">cos(x) = ${cos}</span>` }
+      ],
+      checkEntendimento: `<p>sen²+cos²=1</p><p>(${sen})² + (${cos})² = 1 ✓</p>`,
+      dica: "Fórmula sagrada: sen²x + cos²x = 1. No 1º quadrante, seno e cosseno são POSITIVOS.",
+      resumo: `cos(x) = ${cos} → Resposta: letra A`
+    };
+  } else if (variacao === 2) {
+    const a = Math.floor(rng() * 8) + 3;
+    const b = Math.floor(rng() * 8) + 3;
+    const ang = [60, 90, 120][Math.floor(rng() * 3)];
+    const cosAng = ang === 60 ? 0.5 : ang === 90 ? 0 : -0.5;
+    const c2 = a*a + b*b - 2*a*b*cosAng;
+    const c = Math.sqrt(c2);
+    
+    return {
+      enunciado: `Um triângulo tem lados <strong>${a}</strong> e <strong>${b}</strong> formando ângulo de <strong>${ang}°</strong>. Qual é o terceiro lado?`,
+      alternativas: [Number.isInteger(c) ? `${c}` : `${c.toFixed(2)}`, `${a+b}`, `${Math.abs(a-b)}`, `${Math.sqrt(a*a+b*b).toFixed(2)}`, `${(a+b)/2}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Reconhecer a Lei dos Cossenos", explicacao: `<p>Quando conhecemos DOIS lados e o ÂNGULO entre eles, usamos a Lei dos Cossenos:</p><p><strong>c² = a² + b² - 2ab·cos(C)</strong></p>`, exemplo: `É como o Pitágoras, mas com um ajuste para ângulos que não são 90°.` },
+        { titulo: "Substituir os valores", explicacao: `<p>Colocamos a=${a}, b=${b}, C=${ang}°.</p>`, visual: `<span class="linha">c² = ${a}² + ${b}² - 2·${a}·${b}·cos(${ang}°)</span><span class="linha">c² = ${c2.toFixed(2)}</span><span class="linha resultado">c ≈ ${c.toFixed(4)}</span>` }
+      ],
+      checkEntendimento: `<p>c² = a² + b² - 2ab·cos(C)</p><p>c² = ${a*a} + ${b*b} - ${2*a*b}×${cosAng} = ${c2.toFixed(2)}</p><p>c ≈ ${c.toFixed(4)}</p>`,
+      dica: "Lei dos Cossenos: use quando tem 2 lados e o ângulo entre eles. Se o ângulo é 90°, vira Pitágoras.",
+      resumo: `c ≈ ${c.toFixed(4)} → Resposta: letra A`
+    };
+  } else {
+    const pares = [
+      { graus: 30, rad: "π/6" }, { graus: 45, rad: "π/4" }, { graus: 60, rad: "π/3" },
+      { graus: 90, rad: "π/2" }, { graus: 120, rad: "2π/3" }, { graus: 180, rad: "π" },
+      { graus: 270, rad: "3π/2" }, { graus: 360, rad: "2π" }
+    ];
+    const esc = pares[Math.floor(rng() * pares.length)];
+    
+    return {
+      enunciado: `Converta <strong>${esc.graus}°</strong> para radianos.`,
+      alternativas: [esc.rad, "π/6", "π/4", "π/3", "π/2"],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender a conversão", explicacao: `<p>Graus e radianos são duas formas de medir ângulos.</p><p>Uma volta completa = 360° = 2π radianos.</p>`, exemplo: `Imagine uma pizza: 360° é a pizza inteira, 2π rad é a pizza inteira.` },
+        { titulo: "Usar a regra de três", explicacao: `<p>Se 180° = π rad, então ${esc.graus}° = x.</p>`, visual: `<span class="linha">180° → π</span><span class="linha">${esc.graus}° → x</span><span class="linha">x = ${esc.graus}π / 180</span><span class="linha resultado">x = ${esc.rad}</span>` }
+      ],
+      checkEntendimento: `<p>180° = π</p><p>${esc.graus}° = ${esc.graus}π/180 = ${esc.rad}</p>`,
+      dica: "Para converter graus → radianos: multiplique por π/180. Para radianos → graus: multiplique por 180/π.",
+      resumo: `${esc.graus}° × π/180 = ${esc.rad} → Resposta: letra A`
+    };
+  }
+}
+
+// ============================================================
+// GERADOR 6: LOGARITMOS
+// ============================================================
+function gerarLogaritmos(numero, rng, dificuldade) {
+  const variacao = numero % 3;
+  
+  if (variacao === 0) {
+    const base = [2, 3, 5, 10][Math.floor(rng() * 4)];
+    const expo = Math.floor(rng() * 5) + 2;
+    const valor = Math.pow(base, expo);
+    
+    return {
+      enunciado: `Calcule <strong>log<sub>${base}</sub>(${valor})</strong>.`,
+      alternativas: [`${expo}`, `${base}`, `${valor}`, `${expo+1}`, `${base*expo}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é logaritmo", explicacao: `<p>Logaritmo responde: "A base ${base} elevada a qual número dá ${valor}?"</p>`, exemplo: `É como perguntar: quantas vezes preciso multiplicar ${base} por ele mesmo para chegar em ${valor}?` },
+        { titulo: "Transformar em potência", explicacao: `<p>log<sub>${base}</sub>(${valor}) = x ⟺ ${base}ˣ = ${valor}</p>`, visual: `<span class="linha">log<sub>${base}</sub>(${valor}) = x   ⟺   ${base}ˣ = ${valor}</span>` },
+        { titulo: "Decompor o valor", explicacao: `<p>Vamos decompor ${valor} em fatores de ${base}.</p>`, visual: `<span class="linha">${valor} = ${Array(expo).fill(base).join(" × ")} = ${base}^${expo}</span><span class="linha resultado">✅ log<sub>${base}</sub>(${valor}) = ${expo}</span>` }
+      ],
+      checkEntendimento: `<p>log<sub>${base}</sub>(${valor}) = x → ${base}ˣ = ${valor}</p><p>${valor} = ${base}^${expo}, então x = ${expo}</p>`,
+      dica: "Logaritmo é o inverso da potência. log_b(a) = x significa b^x = a. Log de 1 em qualquer base = 0.",
+      resumo: `log<sub>${base}</sub>(${valor}) = ${expo} porque ${base}^${expo} = ${valor} → Resposta: letra A`
+    };
+  } else if (variacao === 1) {
+    const a = [2, 3, 5][Math.floor(rng() * 3)];
+    const b = [2, 3, 5][Math.floor(rng() * 3)];
+    const produto = a * b;
+    
+    return {
+      enunciado: `Simplifique a expressão <strong>log(${a}) + log(${b})</strong> (log na base 10).`,
+      alternativas: [`log(${produto})`, `log(${a+b})`, `log(${a})·log(${b})`, `log(${a})/log(${b})`, `${a+b}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Lembrar a propriedade do produto", explicacao: `<p>Propriedade fundamental: <strong>log(a) + log(b) = log(a·b)</strong></p>`, exemplo: `É como juntar dois pedaços: se você tem log de ${a} e log de ${b}, pode juntar num log só do produto ${a}×${b}.` },
+        { titulo: "Aplicar a propriedade", explicacao: `<p>Identificamos a=${a} e b=${b}.</p>`, visual: `<span class="linha">log(${a}) + log(${b}) = log(${a} × ${b})</span><span class="linha resultado">= log(${produto})</span>` }
+      ],
+      checkEntendimento: `<p>Propriedade: log(a) + log(b) = log(a·b)</p><p>log(${a}) + log(${b}) = log(${produto})</p>`,
+      dica: "Propriedades: log(a)+log(b)=log(ab); log(a)-log(b)=log(a/b); n·log(a)=log(aⁿ). Decore todas!",
+      resumo: `log(${a}) + log(${b}) = log(${produto}) → Resposta: letra A`
+    };
+  } else {
+    const a = [4, 8, 9, 16, 25][Math.floor(rng() * 5)];
+    const b = [2, 3, 4, 5][Math.floor(rng() * 4)];
+    const resultado = Math.log(a) / Math.log(b);
+    
+    return {
+      enunciado: `Calcule log<sub>${b}</sub>(${a}) usando mudança de base (use base 10).`,
+      alternativas: [Number.isInteger(resultado) ? `${resultado}` : `${resultado.toFixed(4)}`, `${a}`, `${b}`, `${a*b}`, `${a-b}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Lembrar a fórmula de mudança de base", explicacao: `<p>Fórmula: <strong>log<sub>b</sub>(a) = log(a) / log(b)</strong></p>`, exemplo: `É como trocar de régua: se não temos régua na unidade que queremos, convertemos para uma unidade conhecida.` },
+        { titulo: "Aplicar a fórmula", explicacao: `<p>Calculamos log de ${a} e log de ${b}.</p>`, visual: `<span class="linha">log<sub>${b}</sub>(${a}) = log(${a}) / log(${b})</span><span class="linha">= ${Math.log10(a).toFixed(4)} / ${Math.log10(b).toFixed(4)}</span><span class="linha resultado">≈ ${resultado.toFixed(4)}</span>` }
+      ],
+      checkEntendimento: `<p>log_b(a) = log(a)/log(b)</p><p>log<sub>${b}</sub>(${a}) ≈ ${resultado.toFixed(4)}</p>`,
+      dica: "Mudança de base: log_b(a) = log_c(a)/log_c(b). Use base 10 ou base e.",
+      resumo: `log<sub>${b}</sub>(${a}) ≈ ${resultado.toFixed(4)} → Resposta: letra A`
+    };
+  }
+}
+
+// ============================================================
+// GERADOR 7: COMBINATÓRIA
+// ============================================================
+function gerarCombinatoria(numero, rng, dificuldade) {
+  const variacao = numero % 4;
+  
+  function fat(n) { let r = 1; for (let i = 2; i <= n; i++) r *= i; return r; }
+  function comb(n, k) { return fat(n) / (fat(k) * fat(n - k)); }
+  function perm(n, k) { return fat(n) / fat(n - k); }
+  
+  if (variacao === 0) {
+    const n = Math.floor(rng() * 5) + 3;
+    
+    return {
+      enunciado: `Calcule <strong>${n}!</strong> (fatorial de ${n}).`,
+      alternativas: [`${fat(n)}`, `${fat(n-1)}`, `${n * (n-1)}`, `${n + 1}`, `${n*n}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o fatorial", explicacao: `<p>Fatorial de n (n!) é o produto de TODOS os inteiros de 1 até n.</p>`, exemplo: `Fatorial conta quantas ordens diferentes podemos organizar objetos.` },
+        { titulo: "Calcular passo a passo", explicacao: `<p>Multiplicamos descendo um por um.</p>`, visual: `<span class="linha">${n}! = ${Array.from({length: n}, (_, i) => n - i).join(" × ")}</span><span class="linha resultado">${n}! = ${fat(n)}</span>` }
+      ],
+      checkEntendimento: `<p>${n}! = ${Array.from({length: n}, (_, i) => n - i).join(" × ")} = ${fat(n)}</p>`,
+      dica: "Fatorial: n! = n × (n-1) × ... × 2 × 1. Por definição: 0! = 1 e 1! = 1.",
+      resumo: `${n}! = ${fat(n)} → Resposta: letra A`
+    };
+  } else if (variacao === 1) {
+    const n = Math.floor(rng() * 5) + 4;
+    const k = Math.floor(rng() * 3) + 2;
+    const c = comb(n, k);
+    
+    return {
+      enunciado: `Quantas combinações diferentes podemos formar escolhendo <strong>${k}</strong> elementos de um conjunto com <strong>${n}</strong> elementos?`,
+      alternativas: [`${c}`, `${perm(n, k)}`, `${fat(n)}`, `${n + k}`, `${n * k}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Diferenciar combinação de arranjo", explicacao: `<p><strong>Combinação</strong>: a ORDEM não importa. {A,B,C} = {C,A,B}.</p><p><strong>Arranjo</strong>: a ordem importa. ABC ≠ CBA.</p>`, exemplo: `Imagine escolher ${k} sabores de sorvete entre ${n} disponíveis. Tanto faz a ordem que você escolhe.` },
+        { titulo: "Fórmula da combinação", explicacao: `<p>C(n, k) = n! / (k! × (n-k)!)</p>`, visual: `<span class="linha">C(${n}, ${k}) = ${n}! / (${k}! × ${n-k}!)</span><span class="linha">= ${fat(n)} / (${fat(k)} × ${fat(n-k)})</span><span class="linha resultado">= ${c}</span>` }
+      ],
+      checkEntendimento: `<p>C(n,k) = n!/(k!(n-k)!)</p><p>C(${n},${k}) = ${c}</p>`,
+      dica: "Combinação: ordem não importa, dividimos por k!. Arranjo: ordem importa, NÃO dividimos por k!.",
+      resumo: `C(${n}, ${k}) = ${c} → Resposta: letra A`
+    };
+  } else if (variacao === 2) {
+    const n = Math.floor(rng() * 4) + 5;
+    const k = Math.floor(rng() * 2) + 2;
+    const a = perm(n, k);
+    
+    return {
+      enunciado: `De quantas formas podemos escolher e ordenar <strong>${k}</strong> elementos de um conjunto de <strong>${n}</strong>? (a ordem importa)`,
+      alternativas: [`${a}`, `${comb(n, k)}`, `${fat(n)}`, `${n * k}`, `${n + k}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Reconhecer um arranjo", explicacao: `<p>Aqui a ORDEM IMPORTA! (diferente de combinação).</p>`, exemplo: `Imagine uma corrida com ${n} corredores. Quantas formas diferentes podem ser o pódio? A ORDEM importa!` },
+        { titulo: "Fórmula do arranjo", explicacao: `<p>A(n, k) = n! / (n-k)!</p>`, visual: `<span class="linha">A(${n}, ${k}) = ${n}! / ${n-k}!</span><span class="linha">= ${fat(n)} / ${fat(n-k)}</span><span class="linha resultado">= ${a}</span>` }
+      ],
+      checkEntendimento: `<p>A(n,k) = n!/(n-k)!</p><p>A(${n},${k}) = ${a}</p>`,
+      dica: "Arranjo = ordem importa. Combinação = ordem não importa.",
+      resumo: `A(${n}, ${k}) = ${a} → Resposta: letra A`
+    };
+  } else {
+    const n = Math.floor(rng() * 3) + 5;
+    const k = Math.floor(rng() * 3) + 2;
+    const nMenosK = n - k;
+    const p = fat(n) / (fat(k) * fat(nMenosK));
+    
+    return {
+      enunciado: `Quantos anagramas tem a palavra com <strong>${k} letras repetidas</strong> de um total de <strong>${n} letras</strong>?`,
+      alternativas: [`${p}`, `${fat(n)}`, `${comb(n, k)}`, `${n * k}`, `${n + k}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender permutação com repetição", explicacao: `<p>Quando há letras repetidas, contar TODAS as permutações contaria várias vezes a mesma palavra.</p>`, exemplo: `Pense na palavra "BANANA". Se contarmos todas as permutações, contaríamos várias vezes porque os A's se repetem.` },
+        { titulo: "Fórmula", explicacao: `<p>P = n! / (rep1! × rep2! × ...)</p>`, visual: `<span class="linha">P = ${n}! / ${k}!</span><span class="linha">= ${fat(n)} / ${fat(k)}</span><span class="linha resultado">= ${p}</span>` }
+      ],
+      checkEntendimento: `<p>Fórmula: n!/(repeticões!)</p><p>P = ${n}!/${k}! = ${p}</p>`,
+      dica: "Quando há elementos repetidos, dividimos pelo fatorial das repetições.",
+      resumo: `P = ${n}!/${k}! = ${p} → Resposta: letra A`
+    };
+  }
+}
+
+// ============================================================
+// GERADOR 8: PROBABILIDADE
+// ============================================================
+function gerarProbabilidade(numero, rng, dificuldade) {
+  const variacao = numero % 4;
+  
+  if (variacao === 0) {
+    const faces = Math.floor(rng() * 3) + 4;
+    const face = Math.floor(rng() * faces) + 1;
+    
+    return {
+      enunciado: `Jogando um dado honesto de <strong>${faces} faces</strong>, qual é a probabilidade de sair o número <strong>${face}</strong>?`,
+      alternativas: [`1/${faces}`, `${face}/${faces}`, `${faces-1}/${faces}`, `1/${face}`, `${face}/${face+1}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é probabilidade", explicacao: `<p>Probabilidade = (casos favoráveis) / (casos possíveis).</p>`, exemplo: `Imagine jogar uma moeda: 1 chance em 2 de dar cara = 1/2 = 50%.` },
+        { titulo: "Identificar os casos", explicacao: `<p>Casos FAVORÁVEIS: sair o número ${face}. Existe 1 caso.</p><p>Casos POSSÍVEIS: ${faces} faces possíveis.</p>`, visual: `<span class="linha">P = 1 / ${faces}</span><span class="linha resultado">P ≈ ${(100/faces).toFixed(2)}%</span>` }
+      ],
+      checkEntendimento: `<p>1 caso favorável, ${faces} casos possíveis</p><p>P = 1/${faces}</p>`,
+      dica: "Probabilidade = favoráveis/possíveis. SEMPRE simplifique a fração!",
+      resumo: `P = 1/${faces} → Resposta: letra A`
+    };
+  } else if (variacao === 1) {
+    const vermelhas = Math.floor(rng() * 5) + 3;
+    const azuis = Math.floor(rng() * 5) + 2;
+    const total = vermelhas + azuis;
+    
+    return {
+      enunciado: `Em uma urna há <strong>${vermelhas} bolas vermelhas</strong> e <strong>${azuis} bolas azuis</strong>. Retirando uma bola ao acaso, qual a probabilidade de ser <strong>vermelha</strong>?`,
+      alternativas: [`${vermelhas}/${total}`, `${azuis}/${total}`, `${vermelhas}/${azuis}`, `1/${total}`, `${total}/${vermelhas}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o problema", explicacao: `<p>Temos uma urna com bolas de duas cores. Vamos tirar uma bola SEM OLHAR.</p>`, exemplo: `Pense num sorteio: cada bola tem a mesma chance.` },
+        { titulo: "Contar os casos", explicacao: `<p>Casos FAVORÁVEIS: ${vermelhas} bolas vermelhas.</p><p>Casos POSSÍVEIS: total = ${total} bolas.</p>`, visual: `<span class="linha">P = ${vermelhas}/${total}</span><span class="linha resultado">P ≈ ${(100*vermelhas/total).toFixed(2)}%</span>` }
+      ],
+      checkEntendimento: `<p>Favoráveis: ${vermelhas}; Possíveis: ${total}</p><p>P = ${vermelhas}/${total}</p>`,
+      dica: "Na urna, sempre conte o total de bolas primeiro. Probabilidade = bolas da cor pedida / total de bolas.",
+      resumo: `P(vermelha) = ${vermelhas}/${total} → Resposta: letra A`
+    };
+  } else if (variacao === 2) {
+    const p = Math.floor(rng() * 5) + 2;
+    const q = Math.floor(rng() * 5) + p + 1;
+    
+    return {
+      enunciado: `A probabilidade de chover amanhã é <strong>${p}/${q}</strong>. Qual a probabilidade de NÃO chover?`,
+      alternativas: [`${q-p}/${q}`, `${p}/${q}`, `1/${q}`, `${p-1}/${q}`, `${q}/${p}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o evento complementar", explicacao: `<p>Se a chance de chover é P, então a chance de NÃO chover é 1 - P.</p>`, exemplo: `Se há 70% de chance de chover, há 30% de chance de não chover.` },
+        { titulo: "Aplicar a fórmula", explicacao: `<p>P(não chover) = 1 - P(chover)</p>`, visual: `<span class="linha">P(não chover) = 1 - ${p}/${q}</span><span class="linha resultado">= ${q-p}/${q}</span>` }
+      ],
+      checkEntendimento: `<p>P(chover) + P(não chover) = 1</p><p>${p}/${q} + ${q-p}/${q} = 1 ✓</p>`,
+      dica: "Evento complementar é ESSENCIAL. Se pede 'pelo menos um', use 1 - P(nenhum).",
+      resumo: `P(não chover) = ${q-p}/${q} → Resposta: letra A`
+    };
+  } else {
+    const p1 = Math.floor(rng() * 4) + 2;
+    const q1 = Math.floor(rng() * 4) + p1 + 1;
+    const p2 = Math.floor(rng() * 4) + 2;
+    const q2 = Math.floor(rng() * 4) + p2 + 1;
+    
+    return {
+      enunciado: `Dois eventos independentes têm probabilidades <strong>${p1}/${q1}</strong> e <strong>${p2}/${q2}</strong>. Qual a probabilidade de AMBOS ocorrerem?`,
+      alternativas: [`${p1*p2}/${q1*q2}`, `${p1+p2}/${q1+q2}`, `${p1*q2}/${p2*q1}`, `${p1+p2}/${q1*q2}`, `${p1*p2}/${q1+q2}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender eventos independentes", explicacao: `<p>Dois eventos são independentes quando um NÃO afeta o outro.</p>`, exemplo: `Imagine jogar uma moeda E um dado. A chance de dar cara E sair 6 é o produto das duas probabilidades.` },
+        { titulo: "Regra do produto", explicacao: `<p>Para eventos INDEPENDENTES que devem ocorrer JUNTOS, multiplicamos:</p>`, visual: `<span class="linha">P(A e B) = ${p1}/${q1} × ${p2}/${q2}</span><span class="linha resultado">= ${p1*p2}/${q1*q2}</span>` }
+      ],
+      checkEntendimento: `<p>P(A e B) = P(A) × P(B)</p><p>= ${p1}/${q1} × ${p2}/${q2} = ${p1*p2}/${q1*q2}</p>`,
+      dica: "Eventos INDEPENDENTES: multiplique. Eventos MUTUAMENTE EXCLUSIVOS: some. 'E' multiplica, 'OU' soma.",
+      resumo: `P(ambos) = ${p1*p2}/${q1*q2} → Resposta: letra A`
+    };
+  }
+}
+
+// ============================================================
+// GERADOR 9: SEQUÊNCIAS
+// ============================================================
+function gerarSequencias(numero, rng, dificuldade) {
+  const variacao = numero % 4;
+  
+  if (variacao === 0) {
+    const a1 = Math.floor(rng() * 10) + 1;
+    const d = Math.floor(rng() * 6) + 2;
+    const n = Math.floor(rng() * 15) + 5;
+    const an = a1 + (n - 1) * d;
+    
+    return {
+      enunciado: `Em uma Progressão Aritmética (PA), o primeiro termo é <strong>${a1}</strong> e a razão é <strong>${d}</strong>. Qual é o ${n}º termo?`,
+      alternativas: [`${an}`, `${a1 + n*d}`, `${a1 * d}`, `${d * n}`, `${a1 + d + n}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é PA", explicacao: `<p>PA é uma sequência onde cada termo é obtido SOMANDO uma constante (razão).</p>`, exemplo: `Ex: 2, 5, 8, 11, 14... cada termo aumenta 3.` },
+        { titulo: "Fórmula do termo geral", explicacao: `<p>aₙ = a₁ + (n-1)·d</p>`, visual: `<span class="linha">a${n} = ${a1} + (${n}-1)·${d}</span><span class="linha">= ${a1} + ${(n-1)*d}</span><span class="linha resultado">= ${an}</span>` }
+      ],
+      checkEntendimento: `<p>aₙ = a₁ + (n-1)d</p><p>a${n} = ${a1} + ${n-1}×${d} = ${an}</p>`,
+      dica: "PA: aₙ = a₁ + (n-1)d. Soma dos n primeiros: Sₙ = (a₁+aₙ)·n/2.",
+      resumo: `a${n} = ${an} → Resposta: letra A`
+    };
+  } else if (variacao === 1) {
+    const a1 = Math.floor(rng() * 3) + 1;
+    const q = Math.floor(rng() * 3) + 2;
+    const n = Math.floor(rng() * 4) + 4;
+    const an = a1 * Math.pow(q, n - 1);
+    
+    return {
+      enunciado: `Em uma PG de primeiro termo <strong>${a1}</strong> e razão <strong>${q}</strong>, qual é o ${n}º termo?`,
+      alternativas: [`${an}`, `${a1 * q * n}`, `${a1 + q * n}`, `${a1 * n * q}`, `${q ** n}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é PG", explicacao: `<p>PG é uma sequência onde cada termo é obtido MULTIPLICANDO pela razão.</p>`, exemplo: `Ex: 2, 6, 18, 54... cada termo é 3× o anterior.` },
+        { titulo: "Fórmula do termo geral", explicacao: `<p>aₙ = a₁ · q^(n-1)</p>`, visual: `<span class="linha">a${n} = ${a1} · ${q}^${n-1}</span><span class="linha resultado">= ${an}</span>` }
+      ],
+      checkEntendimento: `<p>aₙ = a₁·q^(n-1)</p><p>a${n} = ${a1}×${q}^${n-1} = ${an}</p>`,
+      dica: "PG: aₙ = a₁·q^(n-1). NUNCA confunda com PA!",
+      resumo: `a${n} = ${an} → Resposta: letra A`
+    };
+  } else if (variacao === 2) {
+    const a1 = Math.floor(rng() * 8) + 1;
+    const d = Math.floor(rng() * 4) + 1;
+    const n = Math.floor(rng() * 10) + 5;
+    const an = a1 + (n - 1) * d;
+    const soma = ((a1 + an) * n) / 2;
+    
+    return {
+      enunciado: `Calcule a soma dos <strong>${n} primeiros termos</strong> da PA com a₁ = ${a1} e razão ${d}.`,
+      alternativas: [`${soma}`, `${an * n}`, `${a1 * n}`, `${(a1 + d) * n}`, `${soma + 10}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Encontrar o último termo", explicacao: `<p>Para somar, precisamos do primeiro E do último termo.</p>`, visual: `<span class="linha">a${n} = ${a1} + ${n-1}×${d} = ${an}</span>` },
+        { titulo: "Aplicar a fórmula da soma", explicacao: `<p>Sₙ = (a₁ + aₙ) · n / 2</p>`, exemplo: `Imagine somar 1+2+3+...+100. Gauss percebeu que 1+100=101, 2+99=101... são 50 pares de 101 = 5050.`, visual: `<span class="linha">S${n} = (${a1} + ${an}) × ${n} / 2</span><span class="linha resultado">= ${soma}</span>` }
+      ],
+      checkEntendimento: `<p>1) a${n} = ${an}</p><p>2) S${n} = (${a1}+${an})·${n}/2 = ${soma}</p>`,
+      dica: "Soma da PA: Sₙ = (a₁ + aₙ)·n/2. É a média do primeiro e último vezes a quantidade.",
+      resumo: `S${n} = ${soma} → Resposta: letra A`
+    };
+  } else {
+    const a1 = Math.floor(rng() * 10) + 2;
+    const qNum = 1;
+    const qDen = Math.floor(rng() * 4) + 2;
+    const q = qNum / qDen;
+    const soma = a1 / (1 - q);
+    
+    return {
+      enunciado: `Calcule a soma da PG infinita com a₁ = <strong>${a1}</strong> e razão <strong>${qNum}/${qDen}</strong>.`,
+      alternativas: [Number.isInteger(soma) ? `${soma}` : `${soma.toFixed(4)}`, `${a1 * qDen}`, `${a1 / qDen}`, `${a1}`, `Não existe`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Verificar se a soma existe", explicacao: `<p>Para PG infinita ter soma finita, precisamos que |q| < 1.</p><p>Aqui q = ${qNum}/${qDen} ≈ ${q.toFixed(4)}, que é menor que 1. ✓</p>`, exemplo: `Se a razão for menor que 1, cada termo fica menor que o anterior, e a soma "estabiliza" num valor fixo.` },
+        { titulo: "Fórmula da soma infinita", explicacao: `<p>S = a₁ / (1 - q)</p>`, visual: `<span class="linha">S = ${a1} / (1 - ${qNum}/${qDen})</span><span class="linha resultado">= ${soma.toFixed(4)}</span>` }
+      ],
+      checkEntendimento: `<p>|q| = ${q.toFixed(4)} < 1 ✓ (soma finita)</p><p>S = a₁/(1-q) = ${soma.toFixed(4)}</p>`,
+      dica: "PG infinita só tem soma se |q| < 1. Fórmula: S = a₁/(1-q). Se |q| ≥ 1, a soma diverge.",
+      resumo: `S = ${soma.toFixed(4)} → Resposta: letra A`
+    };
+  }
+}
+
+// ============================================================
+// GERADOR 10: NÚMEROS COMPLEXOS
+// ============================================================
+function gerarComplexos(numero, rng, dificuldade) {
+  const variacao = numero % 4;
+  
+  if (variacao === 0) {
+    const a = Math.floor(rng() * 10) + 1;
+    const b = Math.floor(rng() * 10) + 1;
+    const c = Math.floor(rng() * 10) + 1;
+    const d = Math.floor(rng() * 10) + 1;
+    
+    return {
+      enunciado: `Calcule <strong>(${a} + ${b}i) + (${c} + ${d}i)</strong>.`,
+      alternativas: [`${a+c} + ${b+d}i`, `${a+c} + ${b*d}i`, `${a*c} + ${b*d}i`, `${a+b} + ${c+d}i`, `${a+c+b+d}i`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é número complexo", explicacao: `<p>Número complexo tem uma parte REAL e uma parte IMAGINÁRIA (com i).</p>`, exemplo: `Pense em coordenadas: ${a}+${b}i é o ponto (${a}, ${b}) no plano.` },
+        { titulo: "Somar partes reais e imaginárias separadamente", explicacao: `<p>Somamos as partes reais e depois as imaginárias. NÃO misturamos!</p>`, visual: `<span class="linha">(${a} + ${b}i) + (${c} + ${d}i)</span><span class="linha">= (${a} + ${c}) + (${b} + ${d})i</span><span class="linha resultado">= ${a+c} + ${b+d}i</span>` }
+      ],
+      checkEntendimento: `<p>(a+bi) + (c+di) = (a+c) + (b+d)i</p><p>= ${a+c} + ${b+d}i</p>`,
+      dica: "Números complexos: some/subtraia partes REAIS separadas das IMAGINÁRIAS.",
+      resumo: `(${a}+${b}i) + (${c}+${d}i) = ${a+c} + ${b+d}i → Resposta: letra A`
+    };
+  } else if (variacao === 1) {
+    const expo = Math.floor(rng() * 20) + 3;
+    const resto = expo % 4;
+    const val = resto === 0 ? "1" : resto === 1 ? "i" : resto === 2 ? "-1" : "-i";
+    
+    return {
+      enunciado: `Calcule <strong>i<sup>${expo}</sup></strong>.`,
+      alternativas: [val, "1", "i", "-1", "-i"],
+      correta: 0,
+      resolucao: [
+        { titulo: "Lembrar o ciclo das potências de i", explicacao: `<p>i = √(-1). As potências de i se repetem a cada 4:</p><p>i¹ = i; i² = -1; i³ = -i; i⁴ = 1</p>`, exemplo: `É como um ciclo de 4 estações. Depois de 4, começa tudo de novo.` },
+        { titulo: "Dividir o expoente por 4", explicacao: `<p>Buscamos o resto da divisão de ${expo} por 4.</p>`, visual: `<span class="linha">${expo} ÷ 4 = ${Math.floor(expo/4)} com resto ${resto}</span><span class="linha resultado">i^${expo} = ${val}</span>` }
+      ],
+      checkEntendimento: `<p>${expo} mod 4 = ${resto}</p><p>Resto 0→1; 1→i; 2→-1; 3→-i</p><p>i^${expo} = ${val}</p>`,
+      dica: "Ciclo de i: i, -1, -i, 1. Para iⁿ, divida n por 4 e olhe o RESTO.",
+      resumo: `i^${expo} = ${val} → Resposta: letra A`
+    };
+  } else if (variacao === 2) {
+    const a = Math.floor(rng() * 5) + 3;
+    const b = Math.floor(rng() * 5) + 3;
+    const mod = Math.sqrt(a*a + b*b);
+    
+    return {
+      enunciado: `Qual é o módulo do número complexo <strong>z = ${a} + ${b}i</strong>?`,
+      alternativas: [Number.isInteger(mod) ? `${mod}` : `√${a*a+b*b}`, `${a+b}`, `${a*a+b*b}`, `${Math.sqrt(a+b).toFixed(4)}`, `${a*b}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é módulo", explicacao: `<p>Módulo de um complexo é a DISTÂNCIA do ponto até a origem (0,0).</p>`, exemplo: `Se você marca o ponto (${a}, ${b}) no plano, o módulo é a distância em linha reta até o centro.` },
+        { titulo: "Aplicar a fórmula", explicacao: `<p>|z| = √(a² + b²)</p>`, visual: `<span class="linha">|z| = √(${a}² + ${b}²)</span><span class="linha">= √${a*a+b*b}</span><span class="linha resultado">≈ ${mod.toFixed(4)}</span>` }
+      ],
+      checkEntendimento: `<p>|z| = √(a² + b²) = √${a*a+b*b} ≈ ${mod.toFixed(4)}</p>`,
+      dica: "Módulo de z = a + bi é |z| = √(a²+b²) (Pitágoras).",
+      resumo: `|z| ≈ ${mod.toFixed(4)} → Resposta: letra A`
+    };
+  } else {
+    const a = Math.floor(rng() * 8) + 1;
+    const b = Math.floor(rng() * 8) + 1;
+    
+    return {
+      enunciado: `Qual é o conjugado do número complexo <strong>z = ${a} + ${b}i</strong>?`,
+      alternativas: [`${a} - ${b}i`, `-${a} + ${b}i`, `-${a} - ${b}i`, `${b} + ${a}i`, `${b} - ${a}i`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é conjugado", explicacao: `<p>O conjugado de z = a + bi é z̄ = a - bi.</p><p>Trocamos o SINAL da parte imaginária.</p>`, exemplo: `É como "espelhar" o número em relação ao eixo real (horizontal).` },
+        { titulo: "Aplicar", explicacao: `<p>z = ${a} + ${b}i → z̄ = ${a} - ${b}i</p>`, visual: `<span class="linha">z = ${a} + ${b}i</span><span class="linha resultado">z̄ = ${a} - ${b}i</span>` }
+      ],
+      checkEntendimento: `<p>Conjugado: troca o sinal da parte imaginária</p><p>z = ${a} + ${b}i → z̄ = ${a} - ${b}i</p>`,
+      dica: "Conjugado: troca o sinal do i. z·z̄ = a²+b² (número real).",
+      resumo: `z̄ = ${a} - ${b}i → Resposta: letra A`
+    };
+  }
+}
+
+// ============================================================
+// GERADOR 11: GEOMETRIA ANALÍTICA
+// ============================================================
+function gerarGeometriaAnalitica(numero, rng, dificuldade) {
+  const variacao = numero % 4;
+  
+  if (variacao === 0) {
+    const x1 = Math.floor(rng() * 10);
+    const y1 = Math.floor(rng() * 10);
+    const x2 = Math.floor(rng() * 10) + 5;
+    const y2 = Math.floor(rng() * 10) + 5;
+    const dist = Math.sqrt((x2-x1)**2 + (y2-y1)**2);
+    
+    return {
+      enunciado: `Qual a distância entre os pontos A(${x1}, ${y1}) e B(${x2}, ${y2})?`,
+      alternativas: [Number.isInteger(dist) ? `${dist}` : dist.toFixed(4), `${Math.abs(x2-x1)+Math.abs(y2-y1)}`, `${Math.abs(x2-x1)}`, `${Math.abs(y2-y1)}`, `${Math.sqrt(Math.abs(x2-x1)+Math.abs(y2-y1)).toFixed(4)}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender distância entre pontos", explicacao: `<p>Traçamos uma linha reta do ponto A até B. A distância é o comprimento dessa linha.</p>`, exemplo: `Imagine se deslocar ${Math.abs(x2-x1)} quadras na horizontal e ${Math.abs(y2-y1)} na vertical. A distância em linha reta é a hipotenusa.` },
+        { titulo: "Aplicar a fórmula", explicacao: `<p>d = √((Δx)² + (Δy)²)</p>`, visual: `<span class="linha">Δx = ${x2-x1}, Δy = ${y2-y1}</span><span class="linha">d = √(${x2-x1}² + ${y2-y1}²)</span><span class="linha resultado">≈ ${dist.toFixed(4)}</span>` }
+      ],
+      checkEntendimento: `<p>d = √((x₂-x₁)² + (y₂-y₁)²)</p><p>= √${(x2-x1)**2 + (y2-y1)**2} ≈ ${dist.toFixed(4)}</p>`,
+      dica: "Distância entre pontos é Pitágoras disfarçado! d = √((Δx)² + (Δy)²).",
+      resumo: `d ≈ ${dist.toFixed(4)} → Resposta: letra A`
+    };
+  } else if (variacao === 1) {
+    const x1 = Math.floor(rng() * 10);
+    const y1 = Math.floor(rng() * 10);
+    const x2 = Math.floor(rng() * 10) + 10;
+    const y2 = Math.floor(rng() * 10) + 10;
+    const xm = (x1 + x2) / 2;
+    const ym = (y1 + y2) / 2;
+    
+    return {
+      enunciado: `Qual é o ponto médio do segmento com extremos A(${x1}, ${y1}) e B(${x2}, ${y2})?`,
+      alternativas: [`(${xm.toFixed(1)}, ${ym.toFixed(1)})`, `(${x1+x2}, ${y1+y2})`, `(${x2-x1}, ${y2-y1})`, `(${(x1+x2)/4}, ${(y1+y2)/4})`, `(${x1}, ${y2})`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender o que é ponto médio", explicacao: `<p>Ponto médio é o ponto que fica EXATAMENTE no meio do segmento.</p>`, exemplo: `Se A está na posição 2 e B na posição 8 numa régua, o ponto médio é 5 (a média entre 2 e 8).` },
+        { titulo: "Fórmula do ponto médio", explicacao: `<p>xm = (x₁ + x₂)/2; ym = (y₁ + y₂)/2</p>`, visual: `<span class="linha">xm = (${x1} + ${x2})/2 = ${xm}</span><span class="linha">ym = (${y1} + ${y2})/2 = ${ym}</span><span class="linha resultado">M = (${xm}, ${ym})</span>` }
+      ],
+      checkEntendimento: `<p>M = ((x₁+x₂)/2, (y₁+y₂)/2) = (${xm}, ${ym})</p>`,
+      dica: "Ponto médio é a MÉDIA das coordenadas: (x₁+x₂)/2 e (y₁+y₂)/2.",
+      resumo: `M = (${xm}, ${ym}) → Resposta: letra A`
+    };
+  } else if (variacao === 2) {
+    const x1 = Math.floor(rng() * 5);
+    const y1 = Math.floor(rng() * 5);
+    const x2 = x1 + Math.floor(rng() * 5) + 2;
+    const y2 = y1 + Math.floor(rng() * 5) + 2;
+    const m = (y2 - y1) / (x2 - x1);
+    
+    return {
+      enunciado: `Qual o coeficiente angular da reta que passa pelos pontos A(${x1}, ${y1}) e B(${x2}, ${y2})?`,
+      alternativas: [Number.isInteger(m) ? `${m}` : m.toFixed(4), `${(x2-x1)/(y2-y1)}`, `${y2-y1}`, `${x2-x1}`, `${y1+y2}`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Entender coeficiente angular", explicacao: `<p>Coeficiente angular (m) mede a INCLINAÇÃO da reta.</p>`, exemplo: `Se m = 2, a cada passo na horizontal, a reta sobe 2 na vertical.` },
+        { titulo: "Fórmula do coeficiente angular", explicacao: `<p>m = (y₂ - y₁) / (x₂ - x₁) = Δy/Δx</p>`, visual: `<span class="linha">m = (${y2} - ${y1}) / (${x2} - ${x1})</span><span class="linha resultado">= ${m.toFixed(4)}</span>` }
+      ],
+      checkEntendimento: `<p>m = Δy/Δx = (${y2}-${y1})/(${x2}-${x1}) = ${m.toFixed(4)}</p>`,
+      dica: "Coeficiente angular: m = Δy/Δx. m > 0: crescente; m < 0: decrescente.",
+      resumo: `m = ${m.toFixed(4)} → Resposta: letra A`
+    };
+  } else {
+    const x1 = Math.floor(rng() * 5) + 1;
+    const y1 = Math.floor(rng() * 5) + 1;
+    const m = Math.floor(rng() * 4) + 1;
+    const b = y1 - m * x1;
+    
+    return {
+      enunciado: `Qual é a equação da reta com coeficiente angular <strong>${m}</strong> que passa pelo ponto <strong>(${x1}, ${y1})</strong>?`,
+      alternativas: [b >= 0 ? `y = ${m}x + ${b}` : `y = ${m}x - ${Math.abs(b)}`, `y = ${m}x + ${y1}`, `y = ${x1}x + ${m}`, `y = ${y1}x + ${x1}`, `y = ${m + x1}x`],
+      correta: 0,
+      resolucao: [
+        { titulo: "Lembrar a forma geral", explicacao: `<p>Toda reta pode ser escrita como y = mx + b.</p>`, exemplo: `m é a "inclinação" e b é o "ponto de partida" no eixo y.` },
+        { titulo: "Usar a equação ponto-inclinação", explicacao: `<p>y - y₁ = m(x - x₁)</p>`, visual: `<span class="linha">y - ${y1} = ${m}(x - ${x1})</span><span class="linha">y = ${m}x - ${m*x1} + ${y1}</span><span class="linha resultado">y = ${m}x ${b >= 0 ? "+ " + b : "- " + Math.abs(b)}</span>` }
+      ],
+      checkEntendimento: `<p>y - ${y1} = ${m}(x - ${x1})</p><p>y = ${m}x ${b >= 0 ? "+ " + b : "- " + Math.abs(b)}</p>`,
+      dica: "Equação da reta: use y - y₁ = m(x - x₁) quando tiver ponto e inclinação.",
+      resumo: `y = ${m}x ${b >= 0 ? "+ " + b : "- " + Math.abs(b)} → Resposta: letra A`
+    };
+  }
+}
+
+// ============================================================
+// VERIFICAÇÃO: GERAR AS 1000 QUESTÕES
+// ============================================================
+const todasQuestoes = [];
+for (let i = 1; i <= 1000; i++) {
+  todasQuestoes.push(gerarQuestao(i));
+}
+
+console.log(`📚 Total de questões geradas: ${todasQuestoes.length}`);
+const enunciadosUnicos = new Set(todasQuestoes.map(q => q.enunciado));
+console.log(`✅ Enunciados únicos: ${enunciadosUnicos.size}`);
+console.log(`📊 Temas: ${[...new Set(todasQuestoes.map(q => q.tema))].join(", ")}`);
+
+// ============================================================
+// ESTADO DA APLICAÇÃO
+// ============================================================
+let questoesFiltradas = [...todasQuestoes];
+let questaoAtualIndex = 0;
+let respondida = false;
+let stats = { acertos: 0, erros: 0, total: 0 };
+
+function getLetra(i) { return ["A","B","C","D","E"][i]; }
+function getDificuldadeTexto(d) { return { facil: "Fácil", media: "Médio", dificil: "Difícil" }[d]; }
+function getTemaNome(t) {
+  return {
+    aritmetica: "🔢 Aritmética", algebra: "📐 Álgebra", geometria: "📏 Geometria",
+    funcoes: "📈 Funções", trigonometria: "📐 Trigonometria", logaritmos: "🔬 Logaritmos",
+    combinatoria: "🎲 Combinatória", probabilidade: "🎯 Probabilidade",
+    sequencias: "🔗 Sequências", complexos: "🧮 Complexos", geometria_analitica: "📊 Geo. Analítica"
+  }[t] || t;
+}
+
+// ============================================================
+// ESTADO GLOBAL DO RABISCO
+// ============================================================
+let rabiscoCor = "#1e6bff";     // azul
+let rabiscoEspessura = 4;
+let rabiscoBorracha = false;
+
+// Canvas do enunciado
+let rabiscoCanvas = null;
+let rabiscoCtx = null;
+let rabiscoDesenhando = false;
+let rabiscoUltimoX = 0;
+let rabiscoUltimoY = 0;
+
+// Canvas da resolução (tela cheia sobre a resolução)
+let resCanvas = null;
+let resCtx = null;
+let resDesenhando = false;
+let resUltimoX = 0;
+let resUltimoY = 0;
+
+// ============================================================
+// RENDERIZAÇÃO
+// ============================================================
+function renderizarQuestao(semScroll) {
+  const q = questoesFiltradas[questaoAtualIndex];
+  if (!q) return;
+  respondida = false;
+
+  const card = document.getElementById("questaoCard");
+  card.innerHTML = `
+    <div class="questao-header">
+      <span class="questao-numero">Questão ${questaoAtualIndex + 1} de ${questoesFiltradas.length}</span>
+      <span class="questao-tema">${getTemaNome(q.tema)}</span>
+      <span class="questao-dificuldade dif-${q.dificuldade}">${getDificuldadeTexto(q.dificuldade)}</span>
+    </div>
+
+    <div class="questao-enunciado">${q.enunciado}</div>
+
+    <!-- ===================== BARRA DE RABISCO ===================== -->
+    <div class="rabisco-toolbar" id="rabiscoToolbar">
+      <span class="rotulo">✏️ Rabiscar:</span>
+      <button class="cor-btn cor-azul ativa" data-cor="#1e6bff" title="Caneta azul"></button>
+      <button class="cor-btn cor-vermelha" data-cor="#ff2b2b" title="Caneta vermelha"></button>
+      <button class="cor-btn cor-preta" data-cor="#111111" title="Caneta preta"></button>
+      <button class="cor-btn cor-verde" data-cor="#22c55e" title="Caneta verde"></button>
+      <button class="borracha-btn" id="btnBorracha" title="Borracha">🧽</button>
+      <span class="rotulo" style="margin-left:6px;">Traço:</span>
+      <button class="espessura-btn" data-esp="2" title="Fino">F</button>
+      <button class="espessura-btn ativa" data-esp="4" title="Médio">M</button>
+      <button class="espessura-btn" data-esp="8" title="Grosso">G</button>
+      <button class="rabisco-btn-limpar" id="btnLimparRabisco">🗑️ Limpar Tudo</button>
+    </div>
+
+    <div class="rabisco-wrapper" id="rabiscoWrapper">
+      <canvas id="rabiscoCanvas"></canvas>
+      <div class="rabisco-placeholder" id="rabiscoPlaceholder">✏️ Desenhe aqui com o dedo ou mouse para rascunhar a conta</div>
+    </div>
+    <!-- ===================== FIM RABISCO ===================== -->
+
+    <div class="alternativas" id="alternativas">
+      ${q.alternativas.map((alt, i) => `
+        <button class="alternativa" data-index="${i}" onclick="selecionarAlternativa(${i})">
+          <span class="letra">${getLetra(i)}</span>
+          <span>${alt}</span>
+        </button>
+      `).join("")}
+    </div>
+
+    <button class="btn-revelar" id="btnRevelar" onclick="revelarResolucao()">
+      🔍 Revelar Resolução Passo a Passo
+    </button>
+
+    <div class="feedback" id="feedback"></div>
+
+    <div class="resolucao" id="resolucao">
+      <div class="aviso-rabisco-resolucao">
+        <span class="icone">✏️</span>
+        <span><strong>Modo Rabisco Ativado!</strong> Agora você pode desenhar <strong>em cima de toda a resolução</strong> — nos passos, exemplos, dicas e resumo. Use o dedo (celular) ou o mouse (notebook). As cores e a espessura são as mesmas da barra acima.</span>
+      </div>
+
+      <div class="resolucao-rabisco-container" id="resolucaoRabiscoContainer">
+        <div class="resolucao-conteudo" id="resolucaoConteudo">
+          <div class="resolucao-titulo">📝 Resolução Detalhada — Professor Palito</div>
+          ${q.resolucao.map((p, i) => `
+            <div class="passo">
+              <div class="passo-header">
+                <span class="passo-numero">${i+1}</span>
+                <span class="passo-titulo">${p.titulo}</span>
+              </div>
+              <div class="passo-explicacao">${p.explicacao}</div>
+              ${p.exemplo ? `<div class="exemplo-cotidiano">${p.exemplo}</div>` : ''}
+              ${p.visual ? `<div class="visual-matematico">${p.visual}</div>` : ''}
+            </div>
+          `).join("")}
+          ${q.checkEntendimento ? `<div class="check-entendimento">${q.checkEntendimento}</div>` : ''}
+          <div class="dica-professor">
+            <span class="emoji">💡</span>
+            <div><strong>Dica do Professor Palito:</strong> ${q.dica}</div>
+          </div>
+          ${q.resumo ? `<div class="resumo-final">${q.resumo}</div>` : ''}
+        </div>
+        <canvas class="resolucao-canvas" id="resolucaoCanvas"></canvas>
+      </div>
+    </div>
+  `;
+
+  inicializarRabisco();
+  atualizarNavegacao();
+  atualizarFalaProfessor(`Vamos à questão ${questaoAtualIndex + 1}! Leia com calma, cada palavra importa.`);
+  
+  if (!semScroll) {
+    card.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+}
+
+// ============================================================
+// FUNÇÕES DO RABISCO (ENUNCIADO)
+// ============================================================
+function inicializarRabisco() {
+  const canvas = document.getElementById("rabiscoCanvas");
+  const wrapper = document.getElementById("rabiscoWrapper");
+  const placeholder = document.getElementById("rabiscoPlaceholder");
+  if (!canvas || !wrapper) return;
+
+  const largura = wrapper.clientWidth || 300;
+  const altura = Math.max(180, Math.round(largura * 0.45));
+  wrapper.style.height = altura + "px";
+
+  const dpr = window.devicePixelRatio || 1;
+  canvas.width = largura * dpr;
+  canvas.height = altura * dpr;
+  canvas.style.width = "100%";
+  canvas.style.height = "100%";
+
+  rabiscoCanvas = canvas;
+  rabiscoCtx = canvas.getContext("2d");
+  rabiscoCtx.scale(dpr, dpr);
+  rabiscoCtx.lineCap = "round";
+  rabiscoCtx.lineJoin = "round";
+  rabiscoCtx.clearRect(0, 0, largura, altura);
+
+  rabiscoPlaceholderVisivel(true);
+
+  canvas.onpointerdown = iniciarRabisco;
+  canvas.onpointermove = moverRabisco;
+  canvas.onpointerup = pararRabisco;
+  canvas.onpointerleave = pararRabisco;
+  canvas.onpointercancel = pararRabisco;
+}
+
+function rabiscoPlaceholderVisivel(visivel) {
+  const ph = document.getElementById("rabiscoPlaceholder");
+  if (ph) ph.style.display = visivel ? "flex" : "none";
+}
+
+function obterPosicaoRabisco(e) {
+  const rect = rabiscoCanvas.getBoundingClientRect();
+  const escalaX = rabiscoCanvas.width / (window.devicePixelRatio || 1) / rect.width;
+  const escalaY = rabiscoCanvas.height / (window.devicePixelRatio || 1) / rect.height;
+  const x = (e.clientX - rect.left) * escalaX;
+  const y = (e.clientY - rect.top) * escalaY;
+  return { x, y };
+}
+
+function iniciarRabisco(e) {
+  e.preventDefault();
+  rabiscoDesenhando = true;
+  const pos = obterPosicaoRabisco(e);
+  rabiscoUltimoX = pos.x;
+  rabiscoUltimoY = pos.y;
+  rabiscoPlaceholderVisivel(false);
+  if (rabiscoCanvas.setPointerCapture && e.pointerId !== undefined) {
+    try { rabiscoCanvas.setPointerCapture(e.pointerId); } catch(_) {}
+  }
+}
+
+function moverRabisco(e) {
+  if (!rabiscoDesenhando) return;
+  e.preventDefault();
+  const pos = obterPosicaoRabisco(e);
+  const ctx = rabiscoCtx;
+
+  ctx.beginPath();
+  ctx.moveTo(rabiscoUltimoX, rabiscoUltimoY);
+  ctx.lineTo(pos.x, pos.y);
+
+  if (rabiscoBorracha) {
+    ctx.strokeStyle = "rgba(0,0,0,1)";
+    ctx.globalCompositeOperation = "destination-out";
+    ctx.lineWidth = rabiscoEspessura * 3;
+  } else {
+    ctx.strokeStyle = rabiscoCor;
+    ctx.globalCompositeOperation = "source-over";
+    ctx.lineWidth = rabiscoEspessura;
+  }
+
+  ctx.stroke();
+  ctx.globalCompositeOperation = "source-over";
+
+  rabiscoUltimoX = pos.x;
+  rabiscoUltimoY = pos.y;
+}
+
+function pararRabisco(e) {
+  if (!rabiscoDesenhando) return;
+  rabiscoDesenhando = false;
+  if (rabiscoCanvas.releasePointerCapture && e.pointerId !== undefined) {
+    try { rabiscoCanvas.releasePointerCapture(e.pointerId); } catch(_) {}
+  }
+}
+
+// ============================================================
+// FUNÇÕES DO RABISCO (RESOLUÇÃO — TELA CHEIA)
+// ============================================================
+function inicializarResolucaoRabisco() {
+  const container = document.getElementById("resolucaoRabiscoContainer");
+  const conteudo = document.getElementById("resolucaoConteudo");
+  const canvas = document.getElementById("resolucaoCanvas");
+  if (!container || !canvas || !conteudo) return;
+
+  // Ajustar tamanho do canvas ao tamanho real do conteúdo
+  function ajustarTamanho() {
+    const rect = conteudo.getBoundingClientRect();
+    const largura = Math.max(rect.width, container.clientWidth);
+    const altura = Math.max(rect.height, container.clientHeight);
+
+    container.style.position = "relative";
+    container.style.minHeight = altura + "px";
+
+    const dpr = window.devicePixelRatio || 1;
+
+    // Preservar o que já foi desenhado
+    const dadosAntigos = canvas.width > 0 && canvas.height > 0 ? canvas.toDataURL() : null;
+
+    canvas.width = largura * dpr;
+    canvas.height = altura * dpr;
+    canvas.style.width = largura + "px";
+    canvas.style.height = altura + "px";
+
+    resCanvas = canvas;
+    resCtx = canvas.getContext("2d");
+    resCtx.setTransform(1, 0, 0, 1, 0, 0);
+    resCtx.scale(dpr, dpr);
+    resCtx.lineCap = "round";
+    resCtx.lineJoin = "round";
+
+    if (dadosAntigos) {
+      const img = new Image();
+      img.onload = function() {
+        resCtx.drawImage(img, 0, 0, largura, altura);
+      };
+      img.src = dadosAntigos;
+    }
+  }
+
+  // Ajustar após renderização (para garantir que o layout esteja pronto)
+  requestAnimationFrame(() => {
+    ajustarTamanho();
+    // Segunda passada para garantir após eventuais reflows
+    setTimeout(ajustarTamanho, 200);
+  });
+
+  // Eventos de desenho
+  canvas.onpointerdown = function(e) {
+    e.preventDefault();
+    resDesenhando = true;
+    const pos = obterPosicaoRes(e);
+    resUltimoX = pos.x;
+    resUltimoY = pos.y;
+    if (canvas.setPointerCapture && e.pointerId !== undefined) {
+      try { canvas.setPointerCapture(e.pointerId); } catch(_) {}
+    }
+  };
+
+  canvas.onpointermove = function(e) {
+    if (!resDesenhando) return;
+    e.preventDefault();
+    const pos = obterPosicaoRes(e);
+    const ctx = resCtx;
+    if (!ctx) return;
+
+    ctx.beginPath();
+    ctx.moveTo(resUltimoX, resUltimoY);
+    ctx.lineTo(pos.x, pos.y);
+
+    if (rabiscoBorracha) {
+      ctx.strokeStyle = "rgba(0,0,0,1)";
+      ctx.globalCompositeOperation = "destination-out";
+      ctx.lineWidth = rabiscoEspessura * 3;
+    } else {
+      ctx.strokeStyle = rabiscoCor;
+      ctx.globalCompositeOperation = "source-over";
+      ctx.lineWidth = rabiscoEspessura;
+    }
+
+    ctx.stroke();
+    ctx.globalCompositeOperation = "source-over";
+
+    resUltimoX = pos.x;
+    resUltimoY = pos.y;
+  };
+
+  canvas.onpointerup = function(e) {
+    resDesenhando = false;
+    if (canvas.releasePointerCapture && e.pointerId !== undefined) {
+      try { canvas.releasePointerCapture(e.pointerId); } catch(_) {}
+    }
+  };
+  canvas.onpointerleave = function(e) {
+    resDesenhando = false;
+  };
+  canvas.onpointercancel = function(e) {
+    resDesenhando = false;
+  };
+
+  // Guardar referência para eventual redimensionamento
+  window.__resAjustarTamanho = ajustarTamanho;
+}
+
+function obterPosicaoRes(e) {
+  const rect = resCanvas.getBoundingClientRect();
+  const escalaX = resCanvas.width / (window.devicePixelRatio || 1) / rect.width;
+  const escalaY = resCanvas.height / (window.devicePixelRatio || 1) / rect.height;
+  const x = (e.clientX - rect.left) * escalaX;
+  const y = (e.clientY - rect.top) * escalaY;
+  return { x, y };
+}
+
+// ============================================================
+// CONFIGURAÇÃO DOS BOTÕES DE RABISCO
+// ============================================================
+document.addEventListener("click", function(e) {
+  // Cores
+  if (e.target.classList.contains("cor-btn")) {
+    document.querySelectorAll(".cor-btn").forEach(b => b.classList.remove("ativa"));
+    e.target.classList.add("ativa");
+    rabiscoCor = e.target.dataset.cor;
+    rabiscoBorracha = false;
+    const borracha = document.getElementById("btnBorracha");
+    if (borracha) borracha.classList.remove("ativa");
+  }
+
+  // Borracha
+  if (e.target.id === "btnBorracha") {
+    e.target.classList.toggle("ativa");
+    rabiscoBorracha = e.target.classList.contains("ativa");
+  }
+
+  // Espessura
+  if (e.target.classList.contains("espessura-btn")) {
+    document.querySelectorAll(".espessura-btn").forEach(b => b.classList.remove("ativa"));
+    e.target.classList.add("ativa");
+    rabiscoEspessura = parseInt(e.target.dataset.esp, 10);
+  }
+
+  // Limpar rabiscos (enunciado + resolução)
+  if (e.target.id === "btnLimparRabisco") {
+    if (rabiscoCanvas && rabiscoCtx) {
+      rabiscoCtx.clearRect(0, 0, rabiscoCanvas.width, rabiscoCanvas.height);
+      rabiscoPlaceholderVisivel(true);
+    }
+    if (resCanvas && resCtx) {
+      resCtx.clearRect(0, 0, resCanvas.width, resCanvas.height);
+    }
+  }
+});
+
+// Redimensionar ao girar a tela
+let resizeTimerRabisco = null;
+window.addEventListener("resize", function() {
+  clearTimeout(resizeTimerRabisco);
+  resizeTimerRabisco = setTimeout(function() {
+    // Canvas do enunciado
+    if (rabiscoCanvas && rabiscoCtx) {
+      const wrapper = document.getElementById("rabiscoWrapper");
+      if (wrapper) {
+        const largura = wrapper.clientWidth || 300;
+        const altura = Math.max(180, Math.round(largura * 0.45));
+        const dpr = window.devicePixelRatio || 1;
+        const dados = rabiscoCanvas.toDataURL();
+        wrapper.style.height = altura + "px";
+        rabiscoCanvas.width = largura * dpr;
+        rabiscoCanvas.height = altura * dpr;
+        rabiscoCanvas.style.width = "100%";
+        rabiscoCanvas.style.height = "100%";
+        rabiscoCtx = rabiscoCanvas.getContext("2d");
+        rabiscoCtx.scale(dpr, dpr);
+        rabiscoCtx.lineCap = "round";
+        rabiscoCtx.lineJoin = "round";
+        const img = new Image();
+        img.onload = function() {
+          rabiscoCtx.drawImage(img, 0, 0, largura, altura);
+        };
+        img.src = dados;
+      }
+    }
+
+    // Canvas da resolução
+    if (window.__resAjustarTamanho) {
+      window.__resAjustarTamanho();
+    }
+  }, 250);
+});
+
+// ============================================================
+// SELEÇÃO DE ALTERNATIVA / REVELAR RESOLUÇÃO
+// ============================================================
+function selecionarAlternativa(index) {
+  if (respondida) return;
+  respondida = true;
+
+  const q = questoesFiltradas[questaoAtualIndex];
+  const alts = document.querySelectorAll(".alternativa");
+  const fb = document.getElementById("feedback");
+
+  alts.forEach((alt, i) => {
+    alt.classList.add("desabilitada");
+    if (i === q.correta) alt.classList.add("correta");
+    else if (i === index) alt.classList.add("errada");
+  });
+
+  stats.total++;
+  if (index === q.correta) {
+    stats.acertos++;
+    fb.textContent = "🎉 Parabéns! Você acertou! Agora veja a resolução para consolidar.";
+    fb.className = "feedback visivel acerto";
+    atualizarFalaProfessor("Excelente! Resposta correta. Mesmo quando acertamos, é bom ler a resolução!");
+  } else {
+    stats.erros++;
+    fb.textContent = `❌ A resposta correta é a letra ${getLetra(q.correta)}. Vamos entender juntos passo a passo!`;
+    fb.className = "feedback visivel erro";
+    atualizarFalaProfessor(`Sem problemas! Errar é parte de aprender. A resposta certa é ${getLetra(q.correta)}.`);
+  }
+  atualizarStats();
+}
+
+function revelarResolucao() {
+  const resolucao = document.getElementById("resolucao");
+  resolucao.classList.add("visivel");
+  resolucao.classList.add("rabisco-ativo");
+  document.getElementById("btnRevelar").style.display = "none";
+  atualizarFalaProfessor("Resolução revelada! Agora você pode RABISCAR EM CIMA dela — use o dedo ou o mouse.");
+
+  // Inicializar canvas de rabisco da resolução após ela estar visível
+  setTimeout(() => {
+    inicializarResolucaoRabisco();
+  }, 100);
+
+  resolucao.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function atualizarStats() {
+  document.getElementById("statAcertos").textContent = stats.acertos;
+  document.getElementById("statErros").textContent = stats.erros;
+  document.getElementById("statTotal").textContent = stats.total;
+  const ap = stats.total > 0 ? Math.round((stats.acertos / stats.total) * 100) : 0;
+  document.getElementById("statAproveitamento").textContent = ap + "%";
+  document.getElementById("progressoFill").style.width =
+    ((questaoAtualIndex / questoesFiltradas.length) * 100) + "%";
+}
+
+function atualizarNavegacao() {
+  document.getElementById("contadorQuestao").textContent =
+    `Questão ${questaoAtualIndex + 1} de ${questoesFiltradas.length}`;
+  document.getElementById("btnAnterior").disabled = questaoAtualIndex === 0;
+  document.getElementById("btnProxima").disabled = questaoAtualIndex === questoesFiltradas.length - 1;
+}
+
+function atualizarFalaProfessor(t) {
+  document.getElementById("falaProfessor").textContent = t;
+}
+
+// ============================================================
+// FUNÇÃO LOCALIZAR PÁGINA
+// ============================================================
+function localizarPagina() {
+  const input = document.getElementById("inputLocalizar");
+  const msg = document.getElementById("localizarMsg");
+  const valor = parseInt(input.value, 10);
+
+  msg.className = "localizar-msg";
+  msg.textContent = "";
+
+  if (isNaN(valor) || valor < 1 || valor > todasQuestoes.length) {
+    msg.textContent = `⚠️ Digite um número válido entre 1 e ${todasQuestoes.length}.`;
+    msg.className = "localizar-msg show err";
+    input.focus();
+    return;
+  }
+
+  const questaoAlvo = todasQuestoes[valor - 1];
+  const filtroAtivo = document.querySelector(".filtro-btn.ativo");
+  if (filtroAtivo && filtroAtivo.dataset.tema !== "todas" && questaoAlvo.tema !== filtroAtivo.dataset.tema) {
+    document.querySelectorAll(".filtro-btn").forEach(b => b.classList.remove("ativo"));
+    document.querySelector('.filtro-btn[data-tema="todas"]').classList.add("ativo");
+    questoesFiltradas = [...todasQuestoes];
+  }
+
+  const indiceNaFiltrada = questoesFiltradas.findIndex(q => q.id === valor);
+
+  if (indiceNaFiltrada === -1) {
+    msg.textContent = `⚠️ Questão ${valor} não encontrada no filtro atual.`;
+    msg.className = "localizar-msg show err";
+    return;
+  }
+
+  questaoAtualIndex = indiceNaFiltrada;
+  renderizarQuestao(true);
+  atualizarStats();
+
+  const card = document.getElementById("questaoCard");
+  card.classList.remove("highlight");
+  void card.offsetWidth;
+  card.classList.add("highlight");
+  setTimeout(() => card.classList.remove("highlight"), 1600);
+
+  card.scrollIntoView({ behavior: "smooth", block: "start" });
+
+  msg.textContent = `✅ Você foi levado à questão ${valor} (${getTemaNome(questaoAlvo.tema)} — ${getDificuldadeTexto(questaoAlvo.dificuldade)}). Role para ver a resolução!`;
+  msg.className = "localizar-msg show ok";
+
+  atualizarFalaProfessor(`Localizamos a questão ${valor}! Role para baixo para ver o enunciado e a resolução passo a passo.`);
+
+  setTimeout(() => { msg.classList.remove("show"); }, 5000);
+}
+
+// ============================================================
+// EVENTOS
+// ============================================================
+document.getElementById("btnProxima").addEventListener("click", () => {
+  if (questaoAtualIndex < questoesFiltradas.length - 1) {
+    questaoAtualIndex++;
+    renderizarQuestao();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+});
+
+document.getElementById("btnAnterior").addEventListener("click", () => {
+  if (questaoAtualIndex > 0) {
+    questaoAtualIndex--;
+    renderizarQuestao();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+});
+
+document.querySelectorAll(".filtro-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filtro-btn").forEach(b => b.classList.remove("ativo"));
+    btn.classList.add("ativo");
+    const t = btn.dataset.tema;
+    questoesFiltradas = t === "todas" ? [...todasQuestoes] : todasQuestoes.filter(q => q.tema === t);
+    questaoAtualIndex = 0;
+    renderizarQuestao();
+    atualizarStats();
+    atualizarFalaProfessor(t === "todas"
+      ? `Mostrando todas as ${questoesFiltradas.length} questões. Vamos!`
+      : `Filtrando ${getTemaNome(t)}: ${questoesFiltradas.length} questões.`);
+  });
+});
+
+document.getElementById("btnLocalizar").addEventListener("click", localizarPagina);
+
+document.getElementById("inputLocalizar").addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    e.preventDefault();
+    localizarPagina();
+  }
+});
+
+document.getElementById("inputLocalizar").addEventListener("input", () => {
+  const msg = document.getElementById("localizarMsg");
+  if (msg.classList.contains("err")) {
+    msg.classList.remove("show");
+  }
+});
+
+// ============================================================
+// INICIALIZAÇÃO
+// ============================================================
+renderizarQuestao(true);
+atualizarStats();
+
+console.log(`📚 ITA 1000 Questões de Matemática carregado!`);
+console.log(`🔍 Função "Localizar Página" ativada! Digite um número de 1 a 1000.`);
+console.log(`✏️ Rabisco ativado no enunciado E na resolução! Use dedo ou mouse.`);
+console.log(`🎨 Cores: azul, vermelha, preta e verde.`);
+</script>
+</body>
+</html>
